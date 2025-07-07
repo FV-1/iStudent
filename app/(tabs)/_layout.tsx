@@ -33,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: 'Map',
           tabBarIcon: ({ color }) => (
-            <Icon name="map" size={30} color={color} />
+            <Icon name="map" size={30} color={color}  />
           ),
         }}
       />
