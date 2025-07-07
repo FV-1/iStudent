@@ -1,50 +1,68 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: 'salmon',
+        tabBarInactiveTintColor: 'black',
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
+        tabBarShowLabel: false,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            backgroundColor: 'white',
           },
-          default: {},
+          default: {
+            backgroundColor: 'white',
+          },
         }),
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Map',
+          tabBarIcon: ({ color }) => (
+            <Icon name="map" size={30} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="bar_explore"
+        name="bar_explore" // temporaire car restaurants + bar dans la meme page
         options={{
-          title: 'Bar',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Explore',
+          tabBarIcon: ({ color }) => (
+            <Icon name="compass" size={30} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="restaurants_explore"
+      // fichier (tabs)/events.tsx à créer quand resto et bar seront réunis en un seul fichier
+        name="restaurants_explore" // temporaire car destiné à events
         options={{
-          title: 'Restautants',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Events',
+          tabBarIcon: ({ color }) => (
+            <Icon name="star" size={30} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => (
+            <Icon name="circle" size={30} color={color} />
+          ),
         }}
       />
     </Tabs>
