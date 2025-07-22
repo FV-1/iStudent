@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { HapticTab } from '@/components/HapticTab';
@@ -57,14 +57,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
-        options={{
+         name="profile"
+          options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => (
-            <Icon name="circle" size={30} color={color} />
-          ),
-        }}
+          tabBarIcon: () => (
+          <Image
+          source={require('../../assets/images/image-profil.jpg')} // remplace par ton image locale
+          style={{ width: 30, height: 30, borderRadius: 15 }}
       />
+    ),
+  }}
+/>
     </Tabs>
   );
 }
