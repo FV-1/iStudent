@@ -1,0 +1,1319 @@
+[
+    {
+        "id": 1,
+        "date": "du 19 octobreau 20 avr.",
+        "title": "Exposition Chevaliers",
+        "tags": [
+            "Expo",
+            "Payant",
+            "Fin le 20 avril"
+        ],
+        "location": "Château des Ducs de Bretagne",
+        "descriptions": "Chevaliers est une exposition constituée d’un ensemble d’armes et d’armures européennes datant du Moyen Âge et de la Renaissance. L’exposition révèle ainsi la beauté incroyable de ces objets et le savoir-faire artistique des artisans de l’époque. A voir jusqu’au 20 avril 2025 au Château des Ducs.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/01/Chevaliers-©-Archivio-Fotografico-Museo-Stibbert.jpg",
+        "coordinates": [
+            [
+                "47.2155761",
+                "-1.5490891"
+            ]
+        ]
+    },
+    {
+        "id": 2,
+        "date": "du 29 marsau 21 avr.",
+        "title": "Fête foraine de Nantes",
+        "tags": [
+            "Animations",
+            "Famille",
+            "Fête",
+            "jeux",
+            "Loisir",
+            "Gratuit",
+            "Fin le 21 avril"
+        ],
+        "location": "Cours Saint-Pierre",
+        "descriptions": "Le fête foraine fait son grand retour à Nantes ! Comme chaque année, elle s’installera sur l’esplanade du cours Saint-Pierre. Rendez-vous du 29 mars au 21 avril 2025 pour enchainer les manèges et manger quelques chichis !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/08/fete-foraine.jpg",
+        "coordinates": [
+            [
+                "47.2183017",
+                "-1.5488077"
+            ]
+        ]
+    },
+    {
+        "id": 3,
+        "date": "du 4 avrilau 31 août.",
+        "title": "Exposition : Electric Op",
+        "tags": [
+            "Art",
+            "Expo",
+            "Musée",
+            "Payant",
+            "Fin le 31 août"
+        ],
+        "location": "Musée d’arts de Nantes",
+        "descriptions": "Du 4 avril au 31 août 2025 , le Musée d’arts de Nantes et le Buffalo AKG Art Museum (États-Unis) s’associent pour une exposition inédite. Electric Op explore les liens entre l’art optique et les pratiques numériques, de l’art vidéo aux créations informatiques, des années 1960 à aujourd’hui. Une plongée fascinante dans l’évolution des illusions visuelles et de l’abstraction, entre modernité et innovation technologique. Une expo à ne pas rater à Nantes !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/02/Exposition-Electric-Op-au-musee-darts.jpg",
+        "coordinates": [
+            [
+                "47.2195922",
+                "-1.5473686"
+            ]
+        ]
+    },
+    {
+        "id": 4,
+        "date": "du 7 avrilau 18 mai.",
+        "title": "Le Festival Hip Opsession fête ses 20 ans !",
+        "tags": [
+            "Art",
+            "Concert",
+            "Culture",
+            "Danse",
+            "Festival",
+            "Hip-hop",
+            "Open Air",
+            "Payant",
+            "Fin le 18 mai"
+        ],
+        "location": "Multi-sites",
+        "descriptions": "Hip Opsession, dernier festival hip hop pluridisciplinaire de France, célèbre ses 20 ans avec une édition exceptionnelle du 7 avril au 18 mai 2025 ! Plus de 50 événements dans 25 lieux nantais mettront à l’honneur rap, danse, graff et DJing à travers concerts, battles, jams, colo hip hop et workshops. Parmi les temps forts : Un concert plein air à Doulon avec Ben PLG et Youssef Swatt’s, le retour du End Of The Weak et une Birthday Party XXL sous les Nefs. Ça s’annonce très très cool !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/02/AFFICHE-680-X510.jpg",
+        "coordinates": []
+    },
+    {
+        "id": 5,
+        "date": "du 10 avrilau 20 avr.",
+        "title": "Spectacle immersif Peregrina : Un voyage dans les années folles",
+        "tags": [
+            "Culture",
+            "Découverte",
+            "Escape Game",
+            "Spectacle",
+            "Théâtre",
+            "Payant",
+            "Fin le 20 avril"
+        ],
+        "location": "Halles 1 & 2 – quartier de la création",
+        "descriptions": "Le spectacle immersif Peregrina débarque à Nantes du 10 au 20 avril 2025 ! Enfile ta tenue la plus chic et embarque pour un voyage au coeur d’un cabaret des années 20 avec ce spectacle entre théâtre immersif et escape game . Pendant 2h, c’est une expérience unique qui t’attend, dans laquelle tu vas pouvoir être acteur de ta propre aventure. Tu pourras interagir avec les acteurs professionnels, te balader dans le cabaret et même siroter un cocktail, tout en suivant l’histoire qui se déroulera sous tes yeux… Une sortie hyper fun et originale à faire entre potes, en couple ou en famille !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/03/AGENDA.jpg",
+        "coordinates": [
+            [
+                "47.2064612",
+                "-1.5595595"
+            ]
+        ]
+    },
+    {
+        "id": 6,
+        "date": "du 12 avrilau 12 mai.",
+        "title": "Une Traque au Trésor près de Nantes",
+        "tags": [
+            "Animations",
+            "Escape Game",
+            "jeux",
+            "Payant",
+            "Fin le 12 mai"
+        ],
+        "location": "Le Sanatorium Hermann",
+        "descriptions": "Une chasse aux œufs d’horreur ? Oui, c’est possible ! On te donne rendez vous entre le 12 avril et le 12 mai, pour tester cette Traque de Pâques, à 15 kilomètres de Nantes, au Sanatorium Hermann. Oublie les œufs en chocolat, les lapins de Pâques… au moindre bruit, fuis ! Alors, trac ou traque ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/traque-de-paques.jpg",
+        "coordinates": [
+            [
+                "47.0939911",
+                "-1.4546586"
+            ]
+        ]
+    },
+    {
+        "id": 7,
+        "date": "du 16 avrilau 19 avr.",
+        "title": "GAME OVER au Musée d’Arts de Nantes",
+        "tags": [
+            "Animations",
+            "jeux",
+            "Jeux vidéo",
+            "Musée",
+            "Visite",
+            "Payant",
+            "Fin le 19 avril"
+        ],
+        "location": "Musée d’arts de Nantes",
+        "descriptions": "Tu adores les jeux vidéos et tu dis souvent « c’était mieux avant » ? GAME OVER c’est pour toi ! Du 16 au 19 avril, le Musée d’Arts de Nantes se transforme en terrain de jeu, te permettant de (re)découvrir les jeux vidéos emblématiques des années 1970 à nos jours, entre bornes d’arcades et jeux d’auteurs. Alors, tu es de la partie ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/game-over.jpg",
+        "coordinates": [
+            [
+                "47.2195922",
+                "-1.5473686"
+            ]
+        ]
+    },
+    {
+        "id": 8,
+        "date": "jeudi 17 avr.",
+        "title": "La Trinquette fête ses 20 ans !",
+        "tags": [
+            "Apéro",
+            "DJ set",
+            "Fête",
+            "Musique",
+            "Gratuit"
+        ],
+        "location": "La Trinquette",
+        "descriptions": "Le bistrot nantais La Trinquette fête ses 20 ans du 17 au 19 avril. 2025 . Au programme, le musicien Bass Tong, le DJ Seb Popofski et pour clôturer en beauté, il t’invite à une trinquette All Stars.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/La-trinquette-fete-ses-20-ans.jpg",
+        "coordinates": []
+    },
+    {
+        "id": 9,
+        "date": "jeudi 17 avr.",
+        "title": "Expo Chevaliers : Dernier week-end !",
+        "tags": [
+            "Expo",
+            "Payant",
+            "Fin le 20 avril"
+        ],
+        "location": "Château des Ducs de Bretagne",
+        "descriptions": "Chevaliers est une exposition constituée d’un ensemble d’armes et d’armures européennes datant du Moyen Âge et de la Renaissance. L’exposition révèle ainsi la beauté incroyable de ces objets et le savoir-faire artistique des artisans de l’époque. A voir jusqu’au 20 avril 2025 au Château des Ducs.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/01/Exposition-Chevaliers-a-Nantes.jpg",
+        "coordinates": [
+            [
+                "47.2155761",
+                "-1.5490891"
+            ]
+        ]
+    },
+    {
+        "id": 10,
+        "date": "jeudi 17 avr.",
+        "title": "Week-end de réouverture de La Cantine du Voyage !",
+        "tags": [
+            "Animations",
+            "Apéro",
+            "Famille",
+            "Fête",
+            "Food",
+            "Gratuit",
+            "Fin le 20 avril"
+        ],
+        "location": "La Cantine du Voyage à Nantes",
+        "descriptions": "La Cantine du Voyage rouvre ses portes pour un week-end de fête du jeudi 17 avril au lundi 21 avril ! Au programme : desserts gourmands, nouvelle carte du food et boissons, apéro toute la journée et bien d’autres surprises, et le tout face à la Loire ! Ça s’annonce festif, alors ne manque pas ça !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Reouverture-la-cantine.jpg",
+        "coordinates": [
+            [
+                "47.2020345",
+                "-1.572773"
+            ]
+        ]
+    },
+    {
+        "id": 11,
+        "date": "jeudi 17 avr.",
+        "title": "Grand week-end de réouverture de la Sablière",
+        "tags": [
+            "Apéro",
+            "Food",
+            "Guinguette",
+            "Soirée",
+            "Gratuit",
+            "Fin le 20 avril"
+        ],
+        "location": "La Sablière",
+        "descriptions": "La Sablière revient avec un grand week-end de lancement le 17 au 21 avril 2025 pour une nouvelle saison remplie de moments conviviaux au bord de la Loire. Et ça démarre très fort le vendredi 18 avril avec une soirée qui s’annonce très festive avec Roller Toaster. Il y a également plein de nouveautés avec encore plus d’espace et de point de service pour te régaler au plus près de l’eau.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Reouverture-de-La-Sabliere.jpg",
+        "coordinates": [
+            [
+                "47.218371",
+                "-1.553621"
+            ]
+        ]
+    },
+    {
+        "id": 12,
+        "date": "jeudi 17 avr.",
+        "title": "Loue ton vélo électrique à Nantes",
+        "tags": [
+            "Vélo",
+            "Payant",
+            "Fin le 20 avril"
+        ],
+        "location": "Rues de Nantes",
+        "descriptions": "Au printemps, c’est le moment de se remettre au vélo pour profiter de ses trajets en plein air (et en plus filer super vite dans tout Nantes) ! Avec Naolib , tu peux louer sur un ou plusieurs mois un vélo électrique , de quoi te déplacer au quotidien super facilement et rapidement , tout en profitant de notre belle Cité des ducs. Tu hésites encore ? Voici 5 raisons qui vont te convaincre de te mettre en selle .",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/03/Velo-a-Nantes.png",
+        "coordinates": []
+    },
+    {
+        "id": 13,
+        "date": "jeudi 17 avr.",
+        "title": "Fête foraine de Nantes : Dernier week-end !",
+        "tags": [
+            "Animations",
+            "Famille",
+            "Fête",
+            "jeux",
+            "Loisir",
+            "Gratuit",
+            "Fin le 20 avril"
+        ],
+        "location": "Cours Saint-Pierre",
+        "descriptions": "C’est déjà le dernier week-end de la fête foraine de Nantes ! Comme chaque année, elle s’est installée sur l’esplanade du cour Saint-Pierre. Rendez-vous du 29 mars au 21 avril 2025 pour enchainer les manèges et manger quelques chichis !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/02/fete-foraine-nantes-attractions.jpeg",
+        "coordinates": [
+            [
+                "47.2183017",
+                "-1.5488077"
+            ]
+        ]
+    },
+    {
+        "id": 14,
+        "date": "jeudi 17 avr.",
+        "title": "Closing décadanse: Fasme + GTI + Mystery Kid + Dancing in The Dark + Jam Hip Hop + Open Mic",
+        "tags": [
+            "Concert",
+            "Soirée",
+            "Prix libre"
+        ],
+        "location": "Décadanse",
+        "descriptions": "Dans le cadre du Festival Bruits et de la fermeture définitive de Décadanse , on te donne rendez-vous du jeudi 17 avril au samedi 19 avril  2025 pour un deuxième week-end de closing. Au programme : Expo Immersive, Concerts, DJ Sets, Tattoo, Drag et bien d’autres 😉",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/2eme-week-end-de-closing-decadanse.jpg",
+        "coordinates": [
+            [
+                "47.2328543",
+                "-1.5568934"
+            ]
+        ]
+    },
+    {
+        "id": 15,
+        "date": "jeudi 17 avr.",
+        "title": "Une croisière Techno à Nantes",
+        "tags": [
+            "Croisière",
+            "Musique",
+            "Payant"
+        ],
+        "location": "Quai Fernand-Crouan",
+        "descriptions": "Alliance prend le large et investit le Papillon Bleu pour une cinquième édition! Embarquement le Jeudi 17 Avril à 19h sur le Quai Fernand Crouan , pour une croisière sonore au fil de la Loire. Pour te faire naviguer entre Tekno, Pumping Tribe, Hardstyle et HardRave, BSB, Naomat et YUNNOH seront présents.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Croisiere-DJ-Set-W-Alliance.jpg",
+        "coordinates": [
+            [
+                "47.218371",
+                "-1.553621"
+            ]
+        ]
+    },
+    {
+        "id": 16,
+        "date": "jeudi 17 avr.",
+        "title": "Askip Live accueille Orphids, De Kloe et DJ HOBB",
+        "tags": [
+            "Concert",
+            "Culture",
+            "DJ set",
+            "Fête",
+            "Musique",
+            "Prix libre"
+        ],
+        "location": "ASKIP",
+        "descriptions": "7 artistes en une soirée ? Et oui, c’est possible ! C’est le 17 avril qu’Askip Live reçoit le duo belge Orphids, suivi par le quatuor De Kloe, et enfin par le fabuleux DJ HOBB qui clôturera cette soirée comme il se doit. Une programmation qui ne laisse pas indifférent. Si toi aussi tu es amateur de musique, ramène toi chez Askip !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Askip-Live-pdf.jpg",
+        "coordinates": [
+            [
+                "47.206414",
+                "-1.560527"
+            ]
+        ]
+    },
+    {
+        "id": 17,
+        "date": "jeudi 17 avr.",
+        "title": "Tournage de La Colab saison 3",
+        "tags": [
+            "Musique",
+            "Tournage",
+            "Gratuit"
+        ],
+        "location": "Little Atlantique Brewery",
+        "descriptions": "Le tournage de La Colab revient à la Little Atlantique Brewery du 15 au 18 avril pour une saison 3 qui s’annonce pleine de surprise ! Prépare toi à découvrir une expérience artistique inédite. Les inscriptions ce font par mails à: lacolab@couacprod.fr",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/La-Colab-saison-3.png",
+        "coordinates": [
+            [
+                "47.196825",
+                "-1.5894648"
+            ]
+        ]
+    },
+    {
+        "id": 18,
+        "date": "vendredi 18 avr.",
+        "title": "Unity Party : Évenement caritatif au Quintessia",
+        "tags": [
+            "jeux",
+            "Solidaire",
+            "Vente",
+            "Payant"
+        ],
+        "location": "Le quintessia",
+        "descriptions": "Profite d’un événement caritatif ce vendredi 18 avril 2025 au Quintessia !  Au programme : expo de peintures, jeux immersifs, projection de films,  cocktail dînatoire et vente aux enchères ! La totalité du chiffre d’affaires de cette soirée sera reversée à « Regard Ouvert », une association créée par 6 mamans d’enfants en situation de handicap complexe.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Unity-Party-Evenement-caritatif-au-Quintessia.png",
+        "coordinates": [
+            [
+                "47.2582354",
+                "-1.5900631"
+            ]
+        ]
+    },
+    {
+        "id": 19,
+        "date": "vendredi 18 avr.",
+        "title": "Réouverture de la guinguette Les Nantais : Japan Streetfood festival",
+        "tags": [
+            "Animations",
+            "Apéro",
+            "Food",
+            "Opening",
+            "Soirée",
+            "Gratuit"
+        ],
+        "location": "Les Nantais",
+        "descriptions": "La plus grande guinguette de Nantes revient pour sa 5ème saison le vendredi 18 avril 2025 ! Et ça démarre très fort avec le Japan Streetfood Festival durant tout le week-end ! Au menu : de la food japonaise avec bubble tea & fluffy pancakes, yaki udon, takoyakis, onigiris, gyozas, corndogs et autres… et plein d’animations à découvrir très prochainement ! Bref, ça s’annonce très très cool !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/03/japan-streetfood-festival.jpg",
+        "coordinates": [
+            [
+                "47.209493",
+                "-1.6348714"
+            ]
+        ]
+    },
+    {
+        "id": 20,
+        "date": "vendredi 18 avr.",
+        "title": "Soirée Punk : Flash Bemnoz",
+        "tags": [
+            "Soirée",
+            "Prix libre"
+        ],
+        "location": "la Dérive",
+        "descriptions": "Damaged Good et Transbordeur t’invitent à la Dérive le vendredi 18 avril . Au programme, découverte d’artistes punks bretons BEMNOZ et FLECHES ainsi que les basques FLASH.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Soiree-punk-Transbordeur-x-Damaged-Good.png",
+        "coordinates": [
+            [
+                "47.218371",
+                "-1.553621"
+            ]
+        ]
+    },
+    {
+        "id": 21,
+        "date": "vendredi 18 avr.",
+        "title": "Croisière techno à Nantes",
+        "tags": [
+            "Concert",
+            "DJ set",
+            "Fête",
+            "Techno",
+            "Payant"
+        ],
+        "location": "Le Papillon Bleu",
+        "descriptions": "Un bateau, de la techno et des cocktails ? C’est le mélange parfait proposé par Shield Project et le Papillon Bleu avec la Croisière techno du 18 avril. Un échantillon d’été rien que pour toi, l’occasion rêvée pour te la couler douce le temps d’une soirée !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/shield-project.jpg",
+        "coordinates": [
+            [
+                "47.2070812",
+                "-1.5671595"
+            ]
+        ]
+    },
+    {
+        "id": 22,
+        "date": "vendredi 18 avr.",
+        "title": "Métallerie Modulaire est de retour à Nantes",
+        "tags": [
+            "DJ set",
+            "Soirée",
+            "Prix libre"
+        ],
+        "location": "Le Ferrailleur",
+        "descriptions": "Métallerie Modulaire est de retour vendredi 18 avril 2025 au Ferrailleur . Au programme,  MATHILDA, MENSONGES SUR LOIRE, BOUGON BOUGON et le collectif SNFC.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Soiree-croisee-Metallerie-Modulaire.jpg",
+        "coordinates": [
+            [
+                "47.2020345",
+                "-1.572773"
+            ]
+        ]
+    },
+    {
+        "id": 23,
+        "date": "vendredi 18 avr.",
+        "title": "Astropolis est de retour au Warehouse",
+        "tags": [
+            "DJ set",
+            "Festival",
+            "Techno",
+            "Payant"
+        ],
+        "location": "Warehouse",
+        "descriptions": "Astropolis prend le contrôle du Warehouse le vendredi 18 avril pour un Astroclub qui s’annonce mémorable. Retrouve la légende iconique de la techno Jeff Mills. À ses côtés, The Driver akan Manu Le Malin sans manquer les résidents du festival, le Sonic Crew. Du côté de la room 2, ils ont laissé carte blanche à DÔME avec les chaudes couleurs de Lizzie, Le Saint et Arnaud is Dancing.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/LAstroclub-au-Warehouse.jpg",
+        "coordinates": [
+            [
+                "47.201371",
+                "-1.572851"
+            ]
+        ]
+    },
+    {
+        "id": 24,
+        "date": "samedi 19 avr.",
+        "title": "Fumée : Street Food Festival @La Chaumière",
+        "tags": [
+            "DJ set",
+            "Fête",
+            "Food",
+            "Musique",
+            "Gratuit"
+        ],
+        "location": "La Chaumière",
+        "descriptions": "Samedi 19 avril , La Chaumière s’embrase pour une journée gourmande et festive ! Au menu : BBQ fumant, street food de qualité (viande, poisson & végé), bières artisanales, concerts rock, tatouages flash et jeux en bois. De midi à tard, viens partager de bons moments autour des braises et des copains. 😉",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Fumee-Festival-Street-Food-La-Chaumiere.jpg",
+        "coordinates": [
+            [
+                "47.218371",
+                "-1.553621"
+            ]
+        ]
+    },
+    {
+        "id": 25,
+        "date": "samedi 19 avr.",
+        "title": "Chasse aux œufs à la ferme près de Nantes",
+        "tags": [
+            "Animations",
+            "Famille",
+            "jeux",
+            "Loisir",
+            "Payant"
+        ],
+        "location": "Ferme de la Chebuette",
+        "descriptions": "Lapins et lapines, c’est votre moment ! Une chasse aux œufs auprès des animaux ? C’est possible ! La chasse aux œufs à la ferme de la Chebuette revient ce samedi 19 avril, pour un max de fun ! Au programme : nourrissage des animaux et chasse aux œufs en famille ! Alors, tu viens ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/chasse-ferme.jpg",
+        "coordinates": [
+            [
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "id": 26,
+        "date": "samedi 19 avr.",
+        "title": "Chloroph’îles : fête des plantes et de l’environnement",
+        "tags": [
+            "Ateliers",
+            "Plantes",
+            "Gratuit"
+        ],
+        "location": "Île Forget",
+        "descriptions": "Ce week-end, ne manque pas Chloroph’îles, la fête des plantes et de l’environnement sur l’Îe Forget ! Pour cette 17e édition, l’arbre est à l’honneur. Au programme : animations nature, ateliers pour petits et grands, conseils de jardinage, balades et plus de 30 exposants passionnés.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Chlorophiles-nantes.jpg",
+        "coordinates": [
+            [
+                "47.209838",
+                "-1.5078419"
+            ]
+        ]
+    },
+    {
+        "id": 27,
+        "date": "samedi 19 avr.",
+        "title": "Journée d’inauguration du Local Ronin à Nantes",
+        "tags": [
+            "Créateurs",
+            "friperie",
+            "Opening",
+            "Gratuit"
+        ],
+        "location": "Ronin Friperie",
+        "descriptions": "Ce samedi 19 avril, Ronin Friperie inaugure sa nouvelle boutique le Local Ronin. Une boutique riche en diversité comprenant des habits de seconde main avec Ronin Friperie, un dépôt vente et boutique de créateurs avec Seconde Manche, du mobilier avec Mimi la Machine, des bijoux avec Upsu bijoux, des lunettes avec LRDL Lunettes et enfin des illustrations avec Mahnu Dasilva et Fleur Fleur. Alors, prêt à chiner ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/ronin-fripe.jpg",
+        "coordinates": [
+            [
+                "47.2140275",
+                "-1.5576045"
+            ]
+        ]
+    },
+    {
+        "id": 28,
+        "date": "samedi 19 avr.",
+        "title": "Fumée : Street Food Festival @La Chaumière",
+        "tags": [
+            "DJ set",
+            "Fête",
+            "Food",
+            "Musique"
+        ],
+        "location": "La Chaumière",
+        "descriptions": "Samedi 19 avril, La Chaumière s’embrase pour une journée gourmande et festive ! Au menu : BBQ fumant, street food de qualité (viande, poisson & végé), bières artisanales, concerts rock, tatouages flash et jeux en bois. De midi à tard, viens partager de bons moments autour des braises et des copains. 😉",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/03/fumee-la-chaumiere.jpg",
+        "coordinates": [
+            [
+                "47.218371",
+                "-1.553621"
+            ]
+        ]
+    },
+    {
+        "id": 29,
+        "date": "samedi 19 avr.",
+        "title": "Pâques au Château de Goulaine",
+        "tags": [
+            "Château",
+            "Découverte",
+            "Famille",
+            "jeux",
+            "Payant"
+        ],
+        "location": "Château de Goulaine",
+        "descriptions": "Ce samedi 19 avril, le Château de Goulaine t’ouvre ses portes pour une chasse aux œufs pas comme les autres… L’objectif ? Retrouver les décorations des œufs, effacées par un sortilège lancé sur le château. Énigmes, visite des salles du château, mais surtout, récompense pour celui ou celle qui réussira à libérer le château de l’enchantement !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/chateau-paques-goulaine.jpg",
+        "coordinates": [
+            [
+                "47.2044284",
+                "-1.40269"
+            ]
+        ]
+    },
+    {
+        "id": 30,
+        "date": "samedi 19 avr.",
+        "title": "Chasse aux trésors de Pâques près de Nantes",
+        "tags": [
+            "Animations",
+            "Apéro",
+            "Famille",
+            "jeux",
+            "Loisir",
+            "Payant"
+        ],
+        "location": "Place de l’Abbatiale",
+        "descriptions": "Ce samedi 19 avril, une chasse aux trésors t’attend en famille, pleine de surprises et de chocolats ! Au programme : bonbons, délices, boissons et pop corn, de quoi te régaler ! Après midi chasse aux trésors et soirée dansante, alors, partant ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/chasse-aux-tresors.jpg",
+        "coordinates": [
+            [
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "id": 31,
+        "date": "samedi 19 avr.",
+        "title": "SOLAR PROJECT en concert à Nantes",
+        "tags": [
+            "Concert",
+            "Guinguette",
+            "Gratuit"
+        ],
+        "location": "Château de la Gobinière",
+        "descriptions": "Le groupe rock SOLAR PROJECT débarque à Nantes le samedi 19 avril au Parc Michel Baudry . Après deux EP et des centaines de concerts (auprès d’Orelsan, Deluxe, Suzanne, Naâman…), ils ont affiné leur style musical hybride aux influences et sonorités multiples. Une exploration qui se traduit aujourd’hui par un premier album Cœur Eclair . Un style Afro-Pop feel-good et contagieux que les six musicien·nes nantais·es délivrent avec énergie.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Concert-Solar-Project-a-Orvault.jpg",
+        "coordinates": [
+            [
+                "47.249299",
+                "-1.584632"
+            ]
+        ]
+    },
+    {
+        "id": 32,
+        "date": "samedi 19 avr.",
+        "title": "Concert Hip Opsession avec TALIB KWELI + CHILL BUMP + TINAA au Warehouse",
+        "tags": [
+            "Concert",
+            "Fête",
+            "Hip-hop",
+            "Musique",
+            "Payant"
+        ],
+        "location": "Warehouse",
+        "descriptions": "Le festival Hip Opsession revient et pas n’importe comment, avec une soirée mouvementée au Warehouse ce samedi 19 avril ! Au programme : TALIB KWELI, la voix emblématique de la scène hip hop new-yorkaise, le duo CHILL BUMP venant de Tours, et enfin la figure montante de la scène hip hop nantaise, TINAA. On t’attend au tournant pour danser !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Talib-Kweli-a-Nantes.jpg",
+        "coordinates": [
+            [
+                "47.201371",
+                "-1.572851"
+            ]
+        ]
+    },
+    {
+        "id": 33,
+        "date": "dimanche 20 avr.",
+        "title": "Brunch et chasse aux oeufs au Château de Maubreuil",
+        "tags": [
+            "Brunch",
+            "Famille",
+            "Payant"
+        ],
+        "location": "Château de Maubreuil",
+        "descriptions": "Petits lapins, cloches et chocolats investissent le cadre exceptionnel du Château de Maubreuil ! Pour le week-end de Pâques, retrouve des animations spéciales. Un brunch d’exception signé Capkao t’attend les 20 et 21 avril , suivi d’une grande chasse aux œufs dans les jardins le 21 avril à 15h . Une vraie parenthèse élégante et gourmande pour petits et grands ! Sur réservation uniquement.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Brunch-et-chasse-aux-oeufs-au-Chateau-de-Maubreuil.png",
+        "coordinates": [
+            [
+                "47.2940574",
+                "-1.4671215"
+            ]
+        ]
+    },
+    {
+        "id": 34,
+        "date": "dimanche 20 avr.",
+        "title": "Chasse aux œufs solidaire à Nantes",
+        "tags": [
+            "Animations",
+            "Famille",
+            "jeux",
+            "Loisir",
+            "Payant"
+        ],
+        "location": "Parc du Grand Blottereau",
+        "descriptions": "C’est le 20 avril 2025 que la chasse aux œufs solidaire revient sur Nantes ! Tu as la possibilité d’aider et de manger du chocolat le même jour, c’est génial non ? C’est l’occasion rêvée pour profiter de ce jour férié de printemps, et participer à la chasse aux œufs organisée par le Secours Populaire de Nantes. Alors, tu viens ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/chasse-oeufs-solidaires.jpg",
+        "coordinates": [
+            [
+                "47.2299418",
+                "-1.5108337"
+            ]
+        ]
+    },
+    {
+        "id": 35,
+        "date": "dimanche 20 avr.",
+        "title": "420 PARTY à l’Agronaute",
+        "tags": [
+            "Concert",
+            "Fête",
+            "Musique",
+            "Reggae",
+            "Payant"
+        ],
+        "location": "L’Agronaute",
+        "descriptions": "Une soirée aux influences reggae, dub, dance hall, et hip hop, c’est ce dimanche 20 avril à l’Agronaute ! Viens vibrer sous les sons de RDH Hi-Fi et Puppa Dready, pour cette 420 PARTY. On compte sur toi pour venir danser ce dimanche !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/420-party.jpg",
+        "coordinates": [
+            [
+                "47.200462",
+                "-1.5649683"
+            ]
+        ]
+    },
+    {
+        "id": 36,
+        "date": "dimanche 20 avr.",
+        "title": "Soirée Insolenss au CO2",
+        "tags": [
+            "Concert",
+            "DJ set",
+            "Fête",
+            "Musique",
+            "Techno",
+            "Payant"
+        ],
+        "location": "CO² Club Origin",
+        "descriptions": "La scène locale se réunit le dimanche 20 avril, veille de jour férié, pour t’offrir une nuit dont tu te souviendras longtemps. Entre vibration et mouvement, le CO2 t’ouvre ses portes pour danser sous les secousses de Shanixx et Local Crew. Ne manque pas ça, tu risquerais de t’endormir !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/insolenss.jpg",
+        "coordinates": [
+            [
+                "47.1979231",
+                "-1.585871"
+            ]
+        ]
+    },
+    {
+        "id": 37,
+        "date": "lundi 21 avr.",
+        "title": "Chasse aux œufs à Orvault",
+        "tags": [
+            "Animations",
+            "Famille",
+            "jeux",
+            "Loisir",
+            "Gratuit"
+        ],
+        "location": "Parc de la Gobinière",
+        "descriptions": "Fans de chocolat, à vos marques, prêts, partez ! Une chasse aux œufs géante t’attend le lundi 21 avril au parc de la Gobinière. Restauration sur place, œufs en chocolat, une chasse pour les petits et les plus grands, un lundi de pâques qui s’annonce géant !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Chasse-aux-oeufs-orvault.jpg",
+        "coordinates": [
+            [
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "id": 38,
+        "date": "mercredi 23 avr.",
+        "title": "Blue Moon Sessions : Concert jazz de Grégory Privat",
+        "tags": [
+            "Concert",
+            "Musique",
+            "Soirée",
+            "Payant"
+        ],
+        "location": "Joséphine B",
+        "descriptions": "Le pianiste, chanteur et compositeur Grégory Privat , étoile montante du jazz, débarque à Nantes pour un concert inédit dans le cadre des Blue Moon Sessions ! Il présente son nouvel opus PHŒNIX, un album lumineux qui célèbre le cycle de la vie et le fait de renaitre constamment de ses cendres.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/03/08-Gregory-Privat-©-Jeff-Ludovicus.jpg",
+        "coordinates": [
+            [
+                "47.2174023",
+                "-1.5641166"
+            ]
+        ]
+    },
+    {
+        "id": 39,
+        "date": "jeudi 24 avr.",
+        "title": "Dernier week-end de closing pour Décadanse",
+        "tags": [
+            "Concert",
+            "DJ set",
+            "Fête",
+            "Musique",
+            "Prix libre",
+            "Fin le 27 avril"
+        ],
+        "location": "Décadanse",
+        "descriptions": "Et oui, c’est le dernier week-end du festival Bruits pour Décadanse… mais qui termine en beauté ! Au programme pour ce dernier week-end du 24 au 26 avril : Sœurs malsaines, Darko Tyson, Bonne Nuit, Jam Hip-Hop et Open Mic. Mais c’est pas tout : expos immersives, tattoos, performances et pleins d’autres surprises ! Alors, tu viens danser une dernière fois ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/closing-decadanse.jpg",
+        "coordinates": [
+            [
+                "47.2328543",
+                "-1.5568934"
+            ]
+        ]
+    },
+    {
+        "id": 40,
+        "date": "vendredi 25 avr.",
+        "title": "Tournoi de golf caritatif",
+        "tags": [
+            "Solidaire",
+            "sport",
+            "Payant"
+        ],
+        "location": "Golf de Nantes",
+        "descriptions": "Le 25 avril 2025 , le Fonds de dotation du CHU de Nantes organise son grand tournoi de golf caritatif au Golf de Nantes . Une journée qui allie sport, convivialité et engagement solidaire en présence de personnalités du sport comme Antoine Kombouaré, Abdelatif Benazzi, Nino Ourabah et Roger Zabel.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Tournoi-de-Golf-caritatif.jpg",
+        "coordinates": [
+            [
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "id": 41,
+        "date": "vendredi 25 avr.",
+        "title": "Minuit à l’Agronaute",
+        "tags": [
+            "DJ set",
+            "Soirée",
+            "Payant"
+        ],
+        "location": "L’Agronaute",
+        "descriptions": "Le vendredi 25 avril, Laterale Pop propose une soirée unique à l’Agronaute. Entre pop drag et DJ set la soirée « minuit à l’Agronaute » promet d’être festive !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Minuit-a-lAgronaute.jpg",
+        "coordinates": [
+            [
+                "47.200462",
+                "-1.5649683"
+            ]
+        ]
+    },
+    {
+        "id": 42,
+        "date": "samedi 26 avr.",
+        "title": "Abalone Marathon de Nantes",
+        "tags": [
+            "Course",
+            "sport",
+            "Payant"
+        ],
+        "location": "Les Nefs des Machines de l’Île",
+        "descriptions": "Les 26 et 27 avril 2025 , le Marathon de Nantes, le Semi-Marathon et les Foulées de l’éléphant font leur grand retour ! Dans une ambiance de dingue, quelques milliers de coureurs vont pouvoir découvrir les trésors de Nantes à travers des parcours de 42km, 21km ou 10km. Alors, prêts à relever le défi ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/10/marathon_nantes_affiche_2025.jpg",
+        "coordinates": [
+            [
+                "47.202283",
+                "-1.5410734"
+            ]
+        ]
+    },
+    {
+        "id": 43,
+        "date": "samedi 26 avr.",
+        "title": "Les Halles en fête : Un grand week-end créatif sur l’Île de Nantes",
+        "tags": [
+            "Animations",
+            "Ateliers",
+            "Danse",
+            "Marché",
+            "Gratuit"
+        ],
+        "location": "Île de Nantes",
+        "descriptions": "Les 26 et 27 avril , Chtiiing revient sur l’île de Nantes avec Les Halles en fête, un week-end dédié à la créativité et accessible à toutes et tous . Au programme : expo-vente d’art et d’artisanat avec plus de 80 créateur·ices, ateliers participatifs, friperie solidaire, marché de créateurs, vente de plantes, bal folk, podcasts et expériences sonores. Côté jeunes et familles : ateliers coding LEGO et création de jeux avec la Scientific Game Jam. Sans oublier deux expos gratuites à l’École des Beaux-Arts. Un concentré d’art, d’imagination et de bonne humeur à ne pas manquer !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/EVENT-FACEBOOK-CHTIIING-scaled.jpg",
+        "coordinates": [
+            [
+                "47.2239586",
+                "-1.5408058"
+            ]
+        ]
+    },
+    {
+        "id": 44,
+        "date": "samedi 26 avr.",
+        "title": "Troc et vente de plantes Green Mess",
+        "tags": [
+            "Plantes",
+            "Rencontres",
+            "Vente",
+            "Ventes de plantes",
+            "Gratuit"
+        ],
+        "location": "Caserne Mellinet",
+        "descriptions": "Avis aux mains vertes, le Green Mess t’attend ! Et oui, le 26 avril, tu pourras aller troquer tes meilleures plantes et redécorer ton chez toi ! Au programme : troc de plantes en continue, vente de plantes par l’association SHANER, atelier vannerie et balade botanique par Audrey Pernis ! On compte sur toi pour pas te planter, alors ramène ta fraise !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/green-mess.jpg",
+        "coordinates": [
+            [
+                "47.218371",
+                "-1.553621"
+            ]
+        ]
+    },
+    {
+        "id": 45,
+        "date": "mercredi 7 mai.",
+        "title": "Open Air et DJ sets pour la collab Delta Tour X La Chaumière",
+        "tags": [
+            "Concert",
+            "DJ set",
+            "Fête",
+            "Musique",
+            "Payant"
+        ],
+        "location": "La Chaumière",
+        "descriptions": "C’est le 7 mai que le soleil de Marseille arrive sur Nantes à La Chaumière, avec le Delta Tour 2025 ! Pour vous amener en été, des artistes de qualité :  Alex Dahkla, Syneski et Sydney_Disk ! Mais cette soirée Open Air, ce sera également : des animations, des paillettes, food et boissons, et surprises, le tout ambiance guinguette. Il manque plus que toi !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/open-air.jpg",
+        "coordinates": [
+            [
+                "47.218371",
+                "-1.553621"
+            ]
+        ]
+    },
+    {
+        "id": 46,
+        "date": "mardi 13 mai.",
+        "title": "Stereotrip Tokyo",
+        "tags": [
+            "Apéro",
+            "Concert",
+            "Payant"
+        ],
+        "location": "Stereolux",
+        "descriptions": "Le Stereotrip revient le vendredi 13 mai chez Stereolux pour un voyage à Tokyo. Au programme, un apéritif japonais suivi de concerts des artistes Mouse On The Keys, Tujiko Noriko et Tot Onyx.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Stereotrip-Tokyo.jpg",
+        "coordinates": [
+            [
+                "47.205123",
+                "-1.56347"
+            ]
+        ]
+    },
+    {
+        "id": 47,
+        "date": "jeudi 15 mai.",
+        "title": "Emma Peters en concert à Nantes",
+        "tags": [
+            "Concert",
+            "Musique",
+            "Soirée",
+            "Payant"
+        ],
+        "location": "Stereolux",
+        "descriptions": "Depuis la sortie de son premier album Dimanche il y a deux ans, tout a changé pour Emma Peters. Des concerts en France, en Belgique et en Suisse, des millions de streams, les Victoires de la musique : Emma apprend tout, tout de suite. Toujours avec sa guitare et accompagnée de ses musiciens, elle fera résonner ses nouvelles chansons sur scène le jeudi 15 mai 2025 à Stereolux . Ça s’annonce très cool !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Emma-Peters-en-concert-a-Nantes.png",
+        "coordinates": [
+            [
+                "47.205123",
+                "-1.56347"
+            ]
+        ]
+    },
+    {
+        "id": 48,
+        "date": "samedi 17 mai.",
+        "title": "10 ans des Ateliers du Dahu",
+        "tags": [
+            "Concert",
+            "Festival",
+            "Fête",
+            "Musique",
+            "Gratuit"
+        ],
+        "location": "26 Boulevard de Chantenay",
+        "descriptions": "T’as un truc de prévu le 17 et 18 mai ? Maintenant oui. C’est les 10 ans des Ateliers du Dahu ! Pour fêter ça, ils organisent un festival avec une programmation qui déchire : MOVIE STAR JUNKIES, TRIBEQA, 2BESHLAG, MUSIQUE POST-BOURGEOISE, KASPER et plein d’autres surprises… 2 jours de pur bonheur pour célébrer 10 ans de collectif, d’échanges, de rire, de créations, de sacrées teufs. Alors, prêt à briller ?",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/10-ans-Dahu-1.jpg",
+        "coordinates": [
+            [
+                "47.197518",
+                "-1.5889725"
+            ]
+        ]
+    },
+    {
+        "id": 49,
+        "date": "samedi 17 mai.",
+        "title": "Les RétroVailles : marché de créateurs locaux",
+        "tags": [
+            "Créateurs",
+            "Marché",
+            "Gratuit"
+        ],
+        "location": "Le Lieu-Dit",
+        "descriptions": "Le samedi 17 mai 2025 de 13h30 à 18h30 au Lieu Dit, profite des RétroVailles, un marché de créateurs où chaque objet raconte une histoire. Céramique, bijoux, meubles, tapis, friperie et bien d’autres trésors seront à découvrir. Chaque pièce est chinée avec soin, et les créations sont réalisées à la main, avec passion et dans le respect de l’artisanat local. Deux ateliers seront également proposés : tufting (création de tapis) et céramique.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/476330359_659938399704012_7469825250098239356_n.jpg",
+        "coordinates": [
+            [
+                "47.2352243",
+                "-1.5825884"
+            ]
+        ]
+    },
+    {
+        "id": 50,
+        "date": "jeudi 22 mai.",
+        "title": "Nouveau : Euphoria Nantes Festival",
+        "tags": [
+            "Concert",
+            "DJ set",
+            "Festival",
+            "Food",
+            "Humour",
+            "Open Air",
+            "Payant",
+            "Fin le 31 mai"
+        ],
+        "location": "MiN De Rien",
+        "descriptions": "Du 22 au 31 mai 2025 , le nouveau festival Euphoria débarque à Min de Rien sur l’Île de Nantes ! Paco Tyson, Krumpp et le Micro Comedy Club s’associent pour te proposer une semaine de pur kiff en mode open air avec du rap, de la techno, de la house et de la trance. Mais aussi du stand-up, de la bonne bouffe et des animations pour une ambiance de dingue.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/02/Euphoria-Nantes-Festival.jpg",
+        "coordinates": [
+            [
+                "47.200462",
+                "-1.5649683"
+            ]
+        ]
+    },
+    {
+        "id": 51,
+        "date": "samedi 24 mai.",
+        "title": "Le Slipfest #2 : Réveille le beauf qui est en toi !",
+        "tags": [
+            "Festival",
+            "Fête",
+            "Gratuit"
+        ],
+        "location": "Les Nantais",
+        "descriptions": "Le Slipfest revient pour une deuxième édition encore plus folle , et cette fois sur deux jours ! Rendez-vous à la guinguette Les Nantais , au Parc de la Carrière à Saint-Herblain les 24 et 25 mais 2025 pour un festival décalé, familial et totalement hors du temps. Au programme, des animations et une ambiance de dingue. Respect et tolérance obligatoires , mais les tenues de mauvais goût sont vivement encouragées.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/02/Le-Slipfest-2-Reveille-le-beauf-qui-est-en-toi-.jpg",
+        "coordinates": [
+            [
+                "47.209493",
+                "-1.6348714"
+            ]
+        ]
+    },
+    {
+        "id": 52,
+        "date": "samedi 24 mai.",
+        "title": "La Fonky Family en concert à Nantes",
+        "tags": [
+            "Concert",
+            "Musique",
+            "Payant"
+        ],
+        "location": "MiN De Rien",
+        "descriptions": "Les légendes du rap de la Fonky Family débarquent à Nantes le samedi 24 mai 2024 pour un concert exceptionnel en mode open air à MiN de Rien sur l’Île de Nantes ! Après un retour fracassant l’an dernier pour fêter leurs 30 ans, ils ne s’arrêtent pas là et remontent sur scène en 2025 ! Pour notre plus grand plaisir, ils passeront à Nantes accompagnés de deux rappeurs de la nouvelle scène du rap : Bekar et Mairo. Pour tout savoir sur le concert, c’est par ici.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/12/FonkyFamily-AnnonceConcert-Banner.jpg",
+        "coordinates": [
+            [
+                "47.200462",
+                "-1.5649683"
+            ]
+        ]
+    },
+    {
+        "id": 53,
+        "date": "samedi 31 mai.",
+        "title": "Festival Charivari 2025 : 2 jours de concerts gratuits en plein air",
+        "tags": [
+            "Festival",
+            "Musique",
+            "Open Air",
+            "Spectacle",
+            "Gratuit"
+        ],
+        "location": "Parc de La Sèvre",
+        "descriptions": "Le combo parfait entre musique, nature et bonne ambiance ? C’est au festival Charivari que ça se passe ! Les samedi 31 mai et dimanche 1er juin 2025 , ce grand festival revient à Vertou pour sa 13e édition et ça s’annonce très cool. Au programme : deux jours de concerts, de spectacles et de convivialité, le tout en accès libre et en pleine nature !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/festival-charivari-2025-a-15-minutes-de-nantes.jpg",
+        "coordinates": [
+            [
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "id": 54,
+        "date": "vendredi 6 juin.",
+        "title": "Ciné-concert: Doc’n’co",
+        "tags": [
+            "Concert",
+            "Documentaire",
+            "Payant"
+        ],
+        "location": "Stereolux",
+        "descriptions": "Le Doc’n’co proposé par Stereolux revient le vendredi 6 juin ! Il nous replonge dans les années 60 et 70 pour (re)découvrir la Soul avec un magnifique documentaire consacrée au légendaire label Stax, suivi de deux concerts d’artistes américains associés au label référent de la soul actuelle, Daptone Records. Thee Sinseers et the Altons, deux fleurons de la nouvelle scène soul américaine.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/04/Docnco-Soul-chez-Stereolux.jpg",
+        "coordinates": [
+            [
+                "47.205123",
+                "-1.56347"
+            ]
+        ]
+    },
+    {
+        "id": 55,
+        "date": "samedi 7 juin.",
+        "title": "Festival des Caisses à Savon Divattaises",
+        "tags": [
+            "Concert",
+            "Course",
+            "Famille",
+            "Festival",
+            "Fête",
+            "Musique",
+            "Soirée",
+            "Payant"
+        ],
+        "location": "Parc Le Perthuis Churin",
+        "descriptions": "Rendez-vous à Divatte-sur-Loire le samedi 7 juin 2025 pour une journée complètement déjantée entre course de caisses à savon et concerts ! Dès 12h, assiste aux descentes spectaculaires de pilotes lancés à toute allure dans des bolides faits maison. Le soir, place à la musique ! Sur scène, tu retrouveras : Chef and the Gang, Black M, Adrien Toma et le gagnant du tremplin 2025. Une journée à ne surtout pas manquer ! Chope ta place par ici !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/02/Festival-des-Caisses-a-Savon-Divattaises.jpg",
+        "coordinates": [
+            [
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "id": 56,
+        "date": "jeudi 12 juin.",
+        "title": "Débord de Loire 2025",
+        "tags": [
+            "Concert",
+            "Festival",
+            "Musique",
+            "Spectacle",
+            "Gratuit",
+            "Fin le 18 juin"
+        ],
+        "location": "Loire",
+        "descriptions": "Débord de Loire revient cette année à Nantes pour transformer l’estuaire en un spectacle grandiose mêlant voile, danse et découvertes. Du 12 au 16 juin 2025 , 16 villes, de Saint-Brévin à Mauves-sur-Loire, vibreront au rythme des flots. Moment phare : la grande parade nautique du 14 juin , où près de 200 bateaux, dont le Belem et l’ Étoile du Roy , défileront sur la Loire. À quai, bals, spectacles, tables-rondes et visites exploreront les routes maritimes et la décarbonation du transport.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2019/05/debord-de-loire-nautique-artistique-nantes-saint-nazaire-bateau-2.jpg",
+        "coordinates": []
+    },
+    {
+        "id": 57,
+        "date": "mercredi 18 juin.",
+        "title": "Opéra en plein air sur écran géant",
+        "tags": [
+            "Art",
+            "Culture",
+            "Projection",
+            "Soirée",
+            "Spectacle",
+            "Gratuit"
+        ],
+        "location": "Place Graslin",
+        "descriptions": "Voilà une manière carrément sympa de découvrir l’univers de l’opéra ! Imagine une belle soirée d’été, un pique-nique et… un opéra ! Loin des salles fermées, c’est en plein air que tu pourras profiter de « La Flûte enchantée » , le chef d’œuvre de Mozart en mode écran géant à Nantes. Rendez-vous le mercredi 18 juin 2025 sur la place Graslin ! Big City Life t’explique tout sur ce bon plan ici 😉",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/06/opera-graslin.jpeg",
+        "coordinates": [
+            [
+                "47.2129612",
+                "-1.5623385"
+            ]
+        ]
+    },
+    {
+        "id": 58,
+        "date": "jeudi 19 juin.",
+        "title": "Festival Hellfest à Clisson",
+        "tags": [
+            "Festival",
+            "Musique",
+            "Payant",
+            "Fin le 22 juin"
+        ],
+        "location": "Clisson",
+        "descriptions": "Le mythique festival des musiques extrêmes revient faire trembler Clisson du 19 au 22 juin 2025 ! Hardcore, punk, grind, death et thrash metal : ici, ça envoie du lourd sur six scènes , avec plus de 160 groupes venus du monde entier. Le festival est accessible en quelques minutes de train depuis Nantes. Bref, ce temple du metal est LE festival à ne pas manquer.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/06/hellfest.jpg",
+        "coordinates": []
+    },
+    {
+        "id": 59,
+        "date": "vendredi 27 juin.",
+        "title": "Festival Megascene",
+        "tags": [
+            "Concert",
+            "Festival",
+            "Fête",
+            "Musique",
+            "Soirée",
+            "Spectacle",
+            "Payant"
+        ],
+        "location": "Site de la Mouchetière 44310 Saint-Colomban",
+        "descriptions": "Le festival Megascene est de retour en force les 27 et 28 juin 2025 ! Situé à moins de 40 min de Nantes, le site de la Mouchetière accueille cette année une belle programmation comme Hoshi, Jungeli et UB40 !! Ça s’annonce ouf 😉",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/04/MEGASCENE_2023_EBLANCHARD_64-4-scaled.jpg",
+        "coordinates": [
+            [
+                "47.019372",
+                "-1.578295"
+            ]
+        ]
+    },
+    {
+        "id": 60,
+        "date": "samedi 28 juin.",
+        "title": "Expo : Katsushika Hokusai",
+        "tags": [
+            "Expo",
+            "Payant",
+            "Fin le 7 septembre"
+        ],
+        "location": "Château des Ducs de Bretagne",
+        "descriptions": "En 2025, le musée d’histoire de Nantes accueille une exposition exceptionnelle dédiée à Hokusai , en collaboration avec le musée Hokusai-kan d’Obuse au Japon ! En tout, plus de 150 œuvres, dont une quarantaine de peintures inédites, seront présentées. Une occasion unique de plonger dans l’univers de l’art japonais et d’admirer des gravures et peintures emblématiques !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/02/Expo-Katsushika-Hokusai-a-Nantes.jpg",
+        "coordinates": [
+            [
+                "47.2155761",
+                "-1.5490891"
+            ]
+        ]
+    },
+    {
+        "id": 61,
+        "date": "jeudi 10 juil.",
+        "title": "Gros concert en plein air de GIMS",
+        "tags": [
+            "Concert",
+            "Musique",
+            "Payant"
+        ],
+        "location": "Arena Les Sables d’Olonne",
+        "descriptions": "GIMS va débarquer à 1h de Nantes pour un énorme concert en plein air cet été ! La nouvelle tournée de GIMS « Le Dernier Tour » a démarré en novembre 2024 en France. Face à un gros succès et des concerts archi complets, de nouvelles dates sont ajoutées à la tournée. Et pour notre plus grand plaisir, GIMS va débarquer dans la toute nouvelle Arena Les Sables d’Olonne le jeudi 10 juillet 2025 !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/01/Gims-AnnonceConcert-Banner2.png",
+        "coordinates": [
+            [
+                null,
+                null
+            ]
+        ]
+    },
+    {
+        "id": 62,
+        "date": "vendredi 25 juil.",
+        "title": "Festival Les Escales 2025",
+        "tags": [
+            "Concert",
+            "Découverte",
+            "Festival",
+            "Musique",
+            "Payant"
+        ],
+        "location": "Saint-Nazaire",
+        "descriptions": "Tu peux d’ores et déjà bloquer ton week-end du 25 au 27 juillet 2025 ! Au fil des 4 scènes du festival Les Escales , prépare-toi à bouger sur le son de gros noms de la scène nationale et internationale comme SDM, Philippe Katerine, AIR, Feu! Chatterton… tout en découvrant des artistes émergents des autres scènes musicales actuelles dans le monde. Le tout dans un cadre idyllique à deux pas de la mer ! Toutes les infos ici !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/01/les-escales-2025.jpg",
+        "coordinates": [
+            [
+                "47.2734979",
+                "-2.213848"
+            ]
+        ]
+    },
+    {
+        "id": 63,
+        "date": "mercredi 8 oct.",
+        "title": "Synapson en concert à La Carrière",
+        "tags": [
+            "Concert",
+            "Culture",
+            "Musique",
+            "Spectacle",
+            "Payant"
+        ],
+        "location": "La Carrière",
+        "descriptions": "Synapson, c’est l’alchimie entre deux producteurs français qui captivent l’attention depuis 2010. Après 15 ans de carrière, cinq albums, de multiples tournées, des centaines de millions de streams et de nombreuses certifications or et platine, le duo revient avec de nouvelles sonorités et collaborations.",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/02/Synapson-concert-La-Carriere.jpg",
+        "coordinates": [
+            [
+                "47.20998",
+                "-1.6294534"
+            ]
+        ]
+    },
+    {
+        "id": 64,
+        "date": "lundi 10 nov.",
+        "title": "GIMS en concert à Nantes",
+        "tags": [
+            "Concert",
+            "Musique",
+            "Soirée",
+            "Payant"
+        ],
+        "location": "Zenith de Nantes",
+        "descriptions": "Après deux Zénith complets, GI MS prolonge sa tournée « Le Dernier Tour » et revient à Nantes pour deux concerts d’ affilés en fin d’année ! Rendez-vous les Lundi 10 et Mardi 11 Novembre 2025 (20h00) au Zénith de Nantes !",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2025/03/GIMS-le-dernier-tour.png",
+        "coordinates": [
+            [
+                "47.2287056",
+                "-1.6279366"
+            ]
+        ]
+    },
+    {
+        "id": 65,
+        "date": "mardi 16 déc.",
+        "title": "Sofiane Pamart en concert à Nantes",
+        "tags": [
+            "Concert",
+            "Musique",
+            "Payant"
+        ],
+        "location": "La Cité des Congrès",
+        "descriptions": "Installé à Los Angeles, il figure parmi les cinq artistes de musique classique les plus écoutés en streaming dans le monde en 2024 ! Après avoir conquis les plus grandes scènes internationales, Sofiane Pamart revient en France et s’installe dans les plus grandes villes pour une série de concerts exceptionnels. Les 16,17 et 18 décembre 2025 , il transformera la Cité des Congrès en un véritable écrin musical….",
+        "image": "https://www.bigcitynantes.fr/wp-content/uploads/2024/10/sofiane-pamart-concert-nantes.jpg",
+        "coordinates": [
+            [
+                "47.2131428",
+                "-1.5427026"
+            ]
+        ]
+    }
+]

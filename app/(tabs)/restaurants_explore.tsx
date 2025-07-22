@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import EventContainer from '@/components/EventContainer';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import EventContainer from '@/components/EventContainer';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 
 interface Restaurant {
   nomoffre: string;
