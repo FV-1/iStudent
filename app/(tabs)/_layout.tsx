@@ -38,7 +38,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="bar_explore" // temporaire car restaurants + bar dans la meme page
+        name="explorer"
         options={{
           title: 'Explore',
           tabBarIcon: ({ color }) => (
