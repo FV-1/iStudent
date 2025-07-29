@@ -1,8 +1,10 @@
-from bs4 import BeautifulSoup
-import requests
 import json
 import re
 from urllib.parse import unquote
+
+import requests
+from bs4 import BeautifulSoup
+
 
 def get_lat_long_from_url(url):
     decoded_url = unquote(url)  # Décodage de l'URL
@@ -49,8 +51,24 @@ def get_all_url():
 
     print(f"Les URLs ont été sauvegardées dans 'urls.json'.")
 
+import json
+import re
+from urllib.parse import unquote
+
+import requests
+from bs4 import BeautifulSoup
+
+
+def get_lat_long_from_url(url):
+    decoded_url = unquote(url)  # Décodage de l'URL
+    match = re.search(r'query=(-?\d+\.\d+),(-?\d+\.\d+)', decoded_url)
+    if match:
+        latitude = match.group(1)
+        longitude = match.group(2)
+        return latitude, longitude
+    return None, None
+
 def get_all_data():
-    page_number = 1
     id = 0
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
@@ -83,6 +101,20 @@ def get_all_data():
         coordonate = soup.find_all('a', href=lambda href: href and 'google.com/maps' in href)
         coordinates = [get_lat_long_from_url(coord.get('href')) for coord in coordonate]
 
+        div = soup.find('div', class_='event-info-flex')
+
+        if div:
+            a_tag = div.find('a')
+            if a_tag and a_tag.has_attr('href'):
+                link = a_tag['href']
+                print(link)
+            else:
+                print("Aucun lien trouvé.")
+        else:
+            print("Div non trouvée.")
+
+
+
         if location_div:
             location_p = location_div.find('p')
             location = location_p.get_text(strip=True) if location_p else "Localisation non trouvée"
@@ -112,7 +144,8 @@ def get_all_data():
                 "location": location,
                 "descriptions": ' '.join(description.stripped_strings),
                 "image": image_src,
-                "coordinates": coordinates
+                "coordinates": coordinates,
+                "link": link
             }
 
             print(f"Id : {id}")
@@ -123,14 +156,28 @@ def get_all_data():
             print(f"Description : {event['descriptions']}")
             print(f"Image : {event['image']}")
             print(f"Coordinates : {event['coordinates']}")
+            print(f"Link : {event['link']}")
+
             print("-" * 40)
 
-            events.append(event)
+            # Validation stricte : champs non vides + coordonnées valides
+            if (
+                event.get("title") and str(event["title"]).strip() and
+                event.get("date") and str(event["date"]).strip() and
+                event.get("location") and str(event["location"]).strip() and
+                event.get("coordinates") and
+                any(coord and coord != (None, None) for coord in event["coordinates"])
+            ):
+                events.append(event)
+            else:
+                print(f"Événement ignoré (champ vide ou coordonnées manquantes) : {event}")
 
     with open("evenements.json", "w", encoding="utf-8") as json_file:
         json.dump(events, json_file, ensure_ascii=False, indent=4)
 
     print(f"Les événements ont été sauvegardés dans 'evenements.json'.")
 
+
 #get_all_url()
 get_all_data()
+

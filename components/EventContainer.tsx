@@ -1,9 +1,6 @@
-import { View, Text, StyleSheet, ScrollView , Image} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
-import { Ionicons } from '@expo/vector-icons';
-
-
 
 type EventContainerProps = {
   title?: string;
@@ -18,28 +15,31 @@ export default function EventContainer({
   imageUrl,
   tags = [],
 }: EventContainerProps) {
-
   return (
     <ThemedView style={styles.page}>
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={styles.scroll} contentContainerStyle={{ paddingBottom: 20 }}>
         <View style={styles.eventCard}>
           <Image
-            source={require('../assets/images/musique.png')}
-            style={styles.Image}
+            source={imageUrl ? { uri: imageUrl } : require('../assets/images/musique.png')}
+            style={styles.image}
             resizeMode="cover"
           />
-
           <View style={styles.content}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.description}>{description}</Text>
 
             <View style={styles.tagContainer}>
-              <View style={styles.tag}>
-                <Text style={styles.tagText}>Gratuit</Text>
-              </View>
-              <View style={styles.tag}>
-                <Text style={styles.tagText}>Musique</Text>
-              </View>
+              {tags.length === 0 ? (
+                <View style={styles.tag}>
+                  <Text style={styles.tagText}>Gratuit</Text>
+                </View>
+              ) : (
+                tags.map((tag, i) => (
+                  <View key={i} style={styles.tag}>
+                    <Text style={styles.tagText}>{tag}</Text>
+                  </View>
+                ))
+              )}
             </View>
           </View>
         </View>
@@ -50,7 +50,9 @@ export default function EventContainer({
 
 const styles = StyleSheet.create({
   page: {
-    padding: 5,
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#green',
   },
   scroll: {
     flex: 1,
@@ -58,53 +60,47 @@ const styles = StyleSheet.create({
   eventCard: {
     flexDirection: 'row',
     backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 12,
+    borderRadius: 16,
+    padding: 16,
     alignItems: 'flex-start',
   },
-  icon: {
-    width: 50,
-    alignSelf: 'stretch',
-    marginRight: 12,
-    backgroundColor: '#f0f0f0',
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 12,
+    marginRight: 16,
+    backgroundColor: '#ddd',
   },
   content: {
     flex: 1,
   },
   title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 4,
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 6,
+    color: '#222',
   },
   description: {
     fontSize: 14,
-    color: '#555',
-    marginBottom: 8,
+    color: '#666',
+    marginBottom: 12,
+    lineHeight: 20,
   },
   tagContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 6,
   },
   tag: {
-    backgroundColor: '#ddd',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginRight: 6,
-    marginBottom: 6,
+    backgroundColor: '#FF6666',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    marginRight: 8,
+    marginBottom: 8,
   },
   tagText: {
-    fontSize: 12,
-    color: '#333',
-  },
-  Image: {
-    width: 50,
-    alignSelf: 'stretch',
-    marginRight: 12,
-    borderRadius: 12,
-    height: 50,
+    fontSize: 13,
+    color: '#fff',
+    fontWeight: '600',
   },
 });
-

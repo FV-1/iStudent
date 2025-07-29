@@ -1,11 +1,18 @@
 import evenements from '@/assets/data/evenements.json';
 import { useLocalSearchParams } from 'expo-router';
-import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Pressable, Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // ⚠️ important
 
 export default function FullEventScreen() {
   const { id } = useLocalSearchParams();
+  const navigation = useNavigation(); // ⚠️ important
+
   const event = evenements.find((e) => e.id === Number(id));
+
+  useLayoutEffect(() => {
+    navigation.setOptions({ title: event?.title }); // ou headerShown: false
+  }, [navigation]);
 
   if (!event) {
     return (
@@ -35,11 +42,12 @@ export default function FullEventScreen() {
       </View>
 
       <Text style={styles.description}>{event.descriptions}</Text>
-
-      <TouchableOpacity style={styles.button} onPress={() => console.log("Inscription")}>
+      <Pressable style={styles.button} onPress={() => Linking.openURL(event.link)}>
         <Text style={styles.buttonText}>J'y vais !</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      </Pressable>
+
+          
+</ScrollView>
   );
 }
 

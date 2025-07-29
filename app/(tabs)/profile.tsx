@@ -1,16 +1,16 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons, Feather } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 
 export default function ProfileScreen() {
   const router = useRouter();
   const friends = [
-    { username: '@liliancsd', image: 'https://i.pravatar.cc/150?img=12', status: 'En ville' },
-    { username: '@clarahd', image: 'https://i.pravatar.cc/150?img=47' },
-    { username: '@jerem_me', image: null },
-    { username: '@jerem_me', image: null , status: 'En ville'},
+    { username: '@enzo_romoli', image: 'https://scontent-cdg4-3.xx.fbcdn.net/v/t1.15752-9/495047097_9651316251642163_7794720123814034_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Y_DDXWtgy80Q7kNvwHrmWRT&_nc_oc=AdlBc03M5HlAFZaW0SXSqsQa6HWthtixf6PcUhgzy7znbh-KHuhF0Wx2J3ZLAp3Ud04&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cdg4-3.xx&oh=03_Q7cD2wHQ39cpZqnFcMR5_F62C6mrB2XEyBKbvcQsaIw9oDZOZQ&oe=68A8A4C1', status: 'En ville' },
+    { username: '@hafsa_rak', image: 'https://scontent-cdg4-2.cdninstagram.com/v/t51.2885-19/436233337_407121915472159_8373766685675360981_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-cdg4-2.cdninstagram.com&_nc_cat=107&_nc_oc=Q6cZ2QEDFLgrOAQoenPv89NbO1XiHPaJcxTIbAXA5ou2cMFC-itnW_gGue7_CKUAhoBBJsE&_nc_ohc=YsnirTzBg88Q7kNvwGjzXu2&_nc_gid=NQ47NEPRIyLyjDyJ8Q8kiA&edm=ALGbJPMBAAAA&ccb=7-5&oh=00_AfSS4YFxiQdkRQ8Vi_WXUbA215HKO6WiqqbD8iRcmtLpYg&oe=6886E4D7&_nc_sid=7d3ac5' },
+    { username: '@martin_rngx', image: 'https://scontent-cdg4-1.xx.fbcdn.net/v/t1.15752-9/521290481_772943211874118_9091466869842887733_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=0024fc&_nc_ohc=rh_kXoHuvbUQ7kNvwG_-ye5&_nc_oc=Adm0ELfhcJJJBEGQ92GH4YJQk4ef2DuOiUrSFrmcERTXrjwdi34CS1NpWOei4E8ZYRY&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cdg4-1.xx&oh=03_Q7cD2wGCcxhxZuLZ6bsS_l58CjcGOi3SnCFCVsfxWFZAcgIDKw&oe=68A8A2D7 '},
+    { username: '@elsattaquent', image: 'https://scontent-cdg4-2.xx.fbcdn.net/v/t1.15752-9/502611728_1252170429584148_7351636190912703662_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=H4Fs5uC9sB4Q7kNvwEqt8_8&_nc_oc=Adn30jd6RiKea39mtTV10OAuIN7d7VK-8f0UOLT3goSIDMzcqPDXSOCqED0fHsz6R30&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cdg4-2.xx&oh=03_Q7cD2wEeyMMXVqtg22wmsTDMVC34nnt8cINaMdcnoER3T-DAJw&oe=68A8A47C' , status: 'En ville'},
   ];
 
   return (
@@ -19,7 +19,7 @@ export default function ProfileScreen() {
       <View style={styles.whiteZoneHaut}>
         <View style={styles.topComponents}>
           <TouchableOpacity onPress={() => router.push('/')}>
-            <Text style={{ fontSize: 30, color: '#FF6666', fontWeight: 'bold' }}>IStuud</Text>
+            <Text style={{ fontSize: 30, color: '#FF6666', fontWeight: 'bold' }}>IStudent</Text>
           </TouchableOpacity>
           <Ionicons name="search" size={20} color="grey" />
           <TouchableOpacity style={styles.bigButton}>
