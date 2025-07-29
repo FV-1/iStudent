@@ -1,10 +1,16 @@
-import EventContainer from '@/components/EventContainer';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useRouter } from 'expo-router';
 
 interface Place {
   id: string | number;
@@ -16,6 +22,7 @@ interface Place {
 }
 
 export default function AllPlacesScreen() {
+  const router = useRouter();
   const [places, setPlaces] = useState<Place[]>([]);
   const [filter, setFilter] = useState<'Tous' | 'Restaurant' | 'Bar' | 'Bibliothèque'>('Tous');
   const [loading, setLoading] = useState(true);
@@ -38,16 +45,16 @@ export default function AllPlacesScreen() {
 
     const fetchBars = async () => {
       const res = await fetch(
-        'https://overpass-api.de/api/interpreter?data=[out:json][timeout:25];area["name"="Nantes"]["admin_level"="8"]->.searchArea;(node["amenity"="bar"](area.searchArea);way["amenity"="bar"](area.searchArea);relation["amenity"="bar"](area.searchArea););out%20center;'
+        'https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3Barea%5B%22name%22%3D%22Nantes%22%5D%5B%22admin_level%22%3D%228%22%5D-%3E.searchArea%3B(%0Anode%5B%22amenity%22%3D%22bar%22%5D(area.searchArea)%3B%0Away%5B%22amenity%22%3D%22bar%22%5D(area.searchArea)%3B%0Arelation%5B%22amenity%22%3D%22bar%22%5D(area.searchArea)%3B%0A)%3Bout%20center%2010%3B'
       );
       const data = await res.json();
       return data.elements.map((b: any) => ({
         id: b.id,
         title: b.tags?.name || 'Nom non disponible',
-        description:
-          b.tags?.['contact:street'] || b.tags?.['addr:street'] || 'Adresse non disponible',
+        description: b.tags?.['contact:street'] || b.tags?.['addr:street'] || 'Adresse non disponible',
         category: 'Bar',
         tags: [],
+        imageUrl: undefined,
       }));
     };
 
@@ -62,7 +69,7 @@ export default function AllPlacesScreen() {
         description: `${l.adresse}, ${l.ville}`,
         category: 'Bibliothèque',
         tags: l.commune ? [l.commune] : [],
-        imageUrl: l.imageUrl || undefined,
+        imageUrl: undefined,
       }));
     };
 
@@ -74,86 +81,136 @@ export default function AllPlacesScreen() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filteredPlaces =
-    filter === 'Tous' ? places : places.filter((place) => place.category === filter);
+  const filteredPlaces = filter === 'Tous' ? places : places.filter((p) => p.category === filter);
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="map.fill"
-          style={styles.headerImage}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explorer</ThemedText>
-      </ThemedView>
+    <View style={{ flex: 1 }}>
+      {/* HEADER */}
+      <View style={styles.whiteZoneHaut}>
+        <View style={styles.topComponents}>
+          <TouchableOpacity onPress={() => router.push('/')}>
+            <Text style={{ fontSize: 30, color: '#FF6666', fontWeight: 'bold' }}>IStudent</Text>
+          </TouchableOpacity>
+          <Ionicons name="search" size={20} color="grey" />
+          <TouchableOpacity style={styles.bigButton}>
+            <Text style={styles.buttonText}>Nantes</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
+      {/* FILTRE */}
       <View style={styles.filterContainer}>
         {(['Tous', 'Restaurant', 'Bar', 'Bibliothèque'] as const).map((cat) => (
           <TouchableOpacity
             key={cat}
-            style={[
-              styles.filterButton,
-              filter === cat && styles.filterButtonActive,
-            ]}
+            style={[styles.filterButton, filter === cat && styles.filterButtonActive]}
             onPress={() => setFilter(cat)}
           >
-            <ThemedText style={filter === cat ? styles.filterTextActive : styles.filterText}>
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
-            </ThemedText>
+            <Text style={filter === cat ? styles.filterTextActive : styles.filterText}>
+              {cat}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {loading ? (
-        <ActivityIndicator size="large" color="#888" />
-      ) : (
-        filteredPlaces.map((place) => (
-          <EventContainer
-            key={place.id}
-            title={place.title}
-            description={place.description}
-            imageUrl={place.imageUrl}
-            tags={place.tags}
+      {/* LISTE */}
+      <SafeAreaView style={styles.container}>
+        {loading ? (
+          <ActivityIndicator size="large" color="#888" />
+        ) : (
+          <FlatList
+            data={filteredPlaces}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.listContainer}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() =>
+                  router.push({
+                    pathname: '/places/[id]',
+                    params: { id: item.id.toString() },
+                  })
+                }
+              >
+                <Image
+                  source={
+                    item.imageUrl
+                      ? { uri: item.imageUrl }
+                      : require('@/assets/images/hellfest.jpg')
+                  }
+                  style={styles.cardImage}
+                  resizeMode="cover"
+                />
+                <View style={styles.cardContent}>
+                  <Text style={styles.cardTitle}>{item.title}</Text>
+                  <Text style={styles.cardDescription} numberOfLines={3}>
+                    {item.description}
+                  </Text>
+                  <View style={styles.tagRow}>
+                    {item.tags?.slice(0, 3).map((tag, i) => (
+                      <View key={i} style={styles.tagCapsule}>
+                        <Text style={styles.tagText}>#{tag}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
           />
-        ))
-      )}
-    </ParallaxScrollView>
+        )}
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
+  whiteZoneHaut: {
     position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 90,
+    backgroundColor: 'white',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    zIndex: 10,
   },
-  titleContainer: {
+  topComponents: {
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    height: 80,
+  },
+  bigButton: {
+    borderWidth: 2,
+    borderColor: '#FF6666',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    color: '#FF6666',
   },
   filterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 10,
-    flexWrap: 'wrap',
+    marginTop: 100,
+    marginBottom: 10,
+    paddingHorizontal: 16,
   },
   filterButton: {
     paddingVertical: 6,
-    paddingHorizontal: 6,
+    paddingHorizontal: 12,
     borderRadius: 20,
     backgroundColor: '#ccc',
-    margin: 4,
+    marginHorizontal: 4,
   },
   filterButtonActive: {
-    backgroundColor: 'salmon',
+    backgroundColor: '#FF6666',
   },
   filterText: {
     color: '#333',
@@ -162,5 +219,59 @@ const styles = StyleSheet.create({
   filterTextActive: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 10,
+  },
+  listContainer: {
+    paddingBottom: 20,
+  },
+  card: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 6,
+  },
+  cardImage: {
+    width: '100%',
+    height: 150,
+  },
+  cardContent: {
+    padding: 12,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 6,
+  },
+  cardDescription: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 8,
+  },
+  tagRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  tagCapsule: {
+    backgroundColor: '#FF6666',
+    borderRadius: 20,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    marginRight: 6,
+    marginBottom: 6,
+  },
+  tagText: {
+    color: '#fff',
+    fontSize: 12,
   },
 });

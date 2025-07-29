@@ -7,7 +7,6 @@ import { HapticTab } from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 
 export default function TabLayout() {
-
   return (
     <Tabs
       screenOptions={{
@@ -17,15 +16,18 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarShowLabel: false,
-        tabBarStyle: Platform.select({
-          ios: {
-            position: 'absolute',
-            backgroundColor: 'white',
-          },
-          default: {
-            backgroundColor: 'white',
-          },
-        }),
+        tabBarStyle: {
+          left: 20,
+          right: 20,
+          borderRadius: 20,
+          height: 70,
+          backgroundColor: 'white',
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.1,
+          shadowRadius: 8,
+          elevation: 5,
+        },
       }}
     >
       <Tabs.Screen
@@ -33,7 +35,7 @@ export default function TabLayout() {
         options={{
           title: 'Map',
           tabBarIcon: ({ color }) => (
-            <Icon name="map" size={30} color={color}  />
+            <Icon name="map" size={28} color={color} />
           ),
         }}
       />
@@ -42,32 +44,31 @@ export default function TabLayout() {
         options={{
           title: 'Explore',
           tabBarIcon: ({ color }) => (
-            <Icon name="compass" size={30} color={color} />
+            <Icon name="compass" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-      // fichier (tabs)/events.tsx à créer quand resto et bar seront réunis en un seul fichier
-        name="restaurants_explore" // temporaire car destiné à events
+        name="restaurants_explore"
         options={{
           title: 'Events',
           tabBarIcon: ({ color }) => (
-            <Icon name="star" size={30} color={color} />
+            <Icon name="star" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-         name="profile"
-          options={{
+        name="profile"
+        options={{
           title: 'Profile',
           tabBarIcon: () => (
-          <Image
-          source={require('../../assets/images/image-profil.jpg')} // remplace par ton image locale
-          style={{ width: 30, height: 30, borderRadius: 15 }}
+            <Image
+              source={require('../../assets/images/image-profil2.jpg')}
+              style={{ width: 30, height: 30, borderRadius: 15 }}
+            />
+          ),
+        }}
       />
-    ),
-  }}
-/>
     </Tabs>
   );
 }

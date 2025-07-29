@@ -132,7 +132,7 @@ export default function App() {
       <View style={styles.whiteZoneHaut}>
         <View style={styles.topComponents}>
           <TouchableOpacity onPress={() => router.push('/')}>
-            <Text style={{ fontSize: 30, color: '#FF6666', fontWeight: 'bold' }}>IStuud</Text>
+            <Text style={{ fontSize: 30, color: '#FF6666', fontWeight: 'bold' }}>IStudent</Text>
           </TouchableOpacity>
           <Icon name="search" size={20} color="grey" />
           <TouchableOpacity style={styles.bigButton}>
