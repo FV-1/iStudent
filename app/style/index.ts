@@ -1,19 +1,25 @@
 import { StyleSheet } from 'react-native';
 
+import { Brand, HEADER_HEIGHT } from '@/constants/theme';
+
+/**
+ * Styles propres à l'écran carte. Les styles du header et des cartes de liste
+ * vivent désormais dans <AppHeader /> et <ListCard />.
+ */
 const styles = StyleSheet.create({
-  buttonMore: {
-    borderWidth: 2,
-    borderColor: '#FF6666',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 20,
+  container: {
+    flex: 1,
+  },
+  map: {
+    flex: 1,
   },
   card: {
     position: 'absolute',
-    bottom: 20,
+    // Au-dessus de la barre d'onglets (70 px) : la fiche passait dessous.
+    bottom: 100,
     left: 20,
     right: 20,
-    backgroundColor: 'white',
+    backgroundColor: Brand.surface,
     padding: 10,
     borderRadius: 10,
     shadowColor: '#000',
@@ -21,65 +27,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 15,
-  },
-  container: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-  },
-  whiteZoneHaut: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 90,
-    backgroundColor: 'white',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    zIndex: 10,
-  },
-  icons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    padding: 10,
-    marginTop: 15,
-  },
-  topComponents: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: 40,
-    height: 80,
-  },
-  mapZoneCenter: {
-    position: 'absolute',
-    bottom: 180,
-    right: 30,
-    height: 50,
-    width: 50,
-    zIndex: 20,
-  },
-  iconNav: {
-    width: 60,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  bigButton: {
-    borderWidth: 2,
-    borderColor: '#FF6666',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-  },
-  buttonText: {
-    fontWeight: 'bold',
-    color: '#FF6666',
   },
   cardImage: {
     width: 100,
@@ -91,21 +38,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  cardSubtitle: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 5,
-  },
   cardDescription: {
     fontSize: 14,
-    color: '#777',
+    color: Brand.textMuted,
   },
   tagCapsule: {
-    backgroundColor: '#FF6666',
+    backgroundColor: Brand.primary,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    marginRight: 5,
     marginTop: 10,
     marginBottom: 5,
   },
@@ -116,7 +57,7 @@ const styles = StyleSheet.create({
   },
   filtreScroll: {
     position: 'absolute',
-    top: 90,
+    top: HEADER_HEIGHT,
     left: 0,
     right: 0,
     zIndex: 20,
@@ -129,7 +70,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   filtreCapsule: {
-    backgroundColor: '#ffffffff',
+    backgroundColor: Brand.surface,
     paddingHorizontal: 15,
     paddingVertical: 8,
     borderRadius: 25,
@@ -137,29 +78,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minWidth: 80,
   },
+  filtreCapsuleActive: {
+    backgroundColor: Brand.primary,
+  },
   filtreText: {
     color: 'black',
     fontWeight: '600',
     fontSize: 14,
   },
-  title: {
-    fontSize: 30,
-    color: '#FF6666',
-    fontWeight: 'bold',
+  filtreTextActive: {
+    color: Brand.surface,
   },
-  searchButton: {
-    padding: 8,
-    borderRadius: 10,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  b: {
-  color: '#FF6666',
-  fontWeight: 'bold',
-  fontSize: 16,
-  padding: 6,
-}
 });
 
 export default styles;
