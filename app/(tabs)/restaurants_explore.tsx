@@ -10,7 +10,7 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function ListeEvenements() {
   const router = useRouter();
