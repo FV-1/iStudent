@@ -1,50 +1,92 @@
-# Welcome to your Expo app 👋
+# IStudent
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application mobile qui rassemble les événements et les bons plans étudiants
+à Nantes : une carte interactive, un annuaire de lieux (restaurants, bars,
+bibliothèques) et un profil avec ses amis et ses prochaines sorties.
 
-## Get started
+Projet annuel ESGI — Expo / React Native.
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Démarrage
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Puis ouvrez le projet dans **Expo Go** (version SDK 54), un émulateur Android
+ou un simulateur iOS.
 
-## Learn more
+### Variables d'environnement
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+cp .env.example .env
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Une seule variable est nécessaire, et uniquement pour les builds natifs :
 
-## Join the community
+| Variable | Rôle |
+|---|---|
+| `EXPO_PUBLIC_GOOGLE_MAPS_ANDROID_KEY` | Clé « Maps SDK for Android ». **Sans elle, la carte s'affiche en gris uni sur un APK.** Inutile dans Expo Go. |
 
-Join our community of developers creating universal apps.
+Les données open data (Loire-Atlantique) et OpenStreetMap sont publiques et
+ne demandent aucune clé.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Scripts
+
+| Commande | Effet |
+|---|---|
+| `npm start` | Serveur de développement Expo |
+| `npm run android` / `ios` / `web` | Démarrage ciblé sur une plateforme |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | Vérification TypeScript |
+| `npm test` | Tests unitaires (Jest) |
+
+## Structure
+
+```
+app/                 Routes (expo-router, routage par fichiers)
+  (tabs)/            Les 4 onglets : carte, explorer, événements, profil
+  evenement/[id]     Détail d'un événement (données locales)
+  places/[id]        Détail d'un lieu (données distantes)
+components/          Composants partagés (AppHeader, ListCard, ErrorBoundary)
+contexts/            PlacesContext : lieux chargés une fois, partagés
+lib/                 Accès aux API et logique de filtrage
+constants/           Thème et couleurs
+assets/data/         Jeu d'événements embarqué (produit par le scraper)
+scripts/             Scraper Python de l'agenda nantais
+```
+
+## Sources de données
+
+| Contenu | Source | Type |
+|---|---|---|
+| Événements | `assets/data/evenements.json` | Statique, généré hors ligne |
+| Restaurants | Open data Loire-Atlantique | API publique |
+| Bibliothèques | Open data Loire-Atlantique | API publique |
+| Bars | OpenStreetMap (Overpass) | API publique |
+
+### Rafraîchir les événements
+
+Le fichier d'événements est **figé** : il doit être régénéré manuellement.
+
+```bash
+cd scripts
+pip install requests beautifulsoup4
+python PythonDateScapper.py --urls   # reconstruit la liste des URLs
+python PythonDateScapper.py          # produit evenements.json
+```
+
+Copiez ensuite `evenements.json` vers `assets/data/`.
+
+> ⚠️ Le jeu de données actuellement livré date de l'été 2025 et doit être
+> régénéré avant toute mise en ligne.
+
+## Tests
+
+Les tests couvrent la logique métier : filtrage des événements, extraction
+des coordonnées et couche d'accès aux API (identifiants déterministes,
+tolérance aux pannes de source).
+
+```bash
+npm test
+```

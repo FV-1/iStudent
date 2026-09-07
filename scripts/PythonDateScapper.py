@@ -1,143 +1,153 @@
+"""
+Récupération des événements nantais depuis l'agenda de bigcitynantes.fr.
+
+Usage :
+    python PythonDateScapper.py --urls      # (re)construit urls.json
+    python PythonDateScapper.py             # construit evenements.json
+
+Le fichier produit doit ensuite être copié vers assets/data/evenements.json.
+"""
+
+import argparse
 import json
 import re
+import time
 from urllib.parse import unquote
 
 import requests
 from bs4 import BeautifulSoup
 
+HEADERS = {
+    'User-Agent': (
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+        '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+    )
+}
+
+# Délai entre deux requêtes : on interroge un site tiers, on reste courtois.
+REQUEST_DELAY_SECONDS = 0.5
+LIST_URL = 'https://www.bigcitynantes.fr/agenda/liste/page/{page}/?hide_subsequent_recurrences=1'
+
 
 def get_lat_long_from_url(url):
-    decoded_url = unquote(url)  # Décodage de l'URL
+    """Extrait (latitude, longitude) d'un lien Google Maps, sinon (None, None)."""
+    decoded_url = unquote(url)
     match = re.search(r'query=(-?\d+\.\d+),(-?\d+\.\d+)', decoded_url)
     if match:
-        latitude = match.group(1)
-        longitude = match.group(2)
-        return latitude, longitude
+        return match.group(1), match.group(2)
     return None, None
+
 
 def get_all_url():
     page_number = 1
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
-    }
     list_urls = []
 
     while True:
-        print(f"Fetching data from page {page_number}...")
-        url = f'https://www.bigcitynantes.fr/agenda/liste/page/{page_number}/?hide_subsequent_recurrences=1'
-        r = requests.get(url, headers=headers)
+        print(f"Récupération de la page {page_number}...")
+        response = requests.get(LIST_URL.format(page=page_number), headers=HEADERS, timeout=30)
 
-        if r.status_code != 200:
-            print(f"Error: {r.status_code}")
+        if response.status_code != 200:
+            print(f"Erreur HTTP {response.status_code}")
             break
 
-        soup = BeautifulSoup(r.content, 'html.parser')
-        urls = soup.find_all("a", class_="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin")
+        soup = BeautifulSoup(response.content, 'html.parser')
+        anchors = soup.find_all(
+            "a",
+            class_="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin",
+        )
 
-        if not urls:
-            print("Plus aucun URL à récupérer")
+        if not anchors:
+            print("Plus aucune URL à récupérer.")
             break
 
-        for a in urls:
-            href = a.get('href')
+        for anchor in anchors:
+            href = anchor.get('href')
             if href:
-                print(f"URL: {href}")
                 list_urls.append(href)
 
         page_number += 1
+        time.sleep(REQUEST_DELAY_SECONDS)
 
     with open("urls.json", "w", encoding="utf-8") as json_file:
         json.dump(list_urls, json_file, ensure_ascii=False, indent=4)
 
-    print(f"Les URLs ont été sauvegardées dans 'urls.json'.")
-
-import json
-import re
-from urllib.parse import unquote
-
-import requests
-from bs4 import BeautifulSoup
+    print(f"{len(list_urls)} URLs sauvegardées dans 'urls.json'.")
 
 
-def get_lat_long_from_url(url):
-    decoded_url = unquote(url)  # Décodage de l'URL
-    match = re.search(r'query=(-?\d+\.\d+),(-?\d+\.\d+)', decoded_url)
-    if match:
-        latitude = match.group(1)
-        longitude = match.group(2)
-        return latitude, longitude
-    return None, None
+def extract_link(soup):
+    """Lien « billetterie / site officiel » de l'événement, ou None."""
+    div = soup.find('div', class_='event-info-flex')
+    if not div:
+        return None
+    a_tag = div.find('a')
+    if a_tag and a_tag.has_attr('href'):
+        return a_tag['href']
+    return None
+
 
 def get_all_data():
-    id = 0
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
-    }
+    event_id = 0
     events = []
 
     with open("urls.json", "r", encoding="utf-8") as json_file:
         urls = json.load(json_file)
 
     for event_url in urls:
-        print(f"Fetching data for event at {event_url}...")
-        r = requests.get(event_url, headers=headers)
+        print(f"Traitement de {event_url}...")
+        response = requests.get(event_url, headers=HEADERS, timeout=30)
+        time.sleep(REQUEST_DELAY_SECONDS)
 
-        if r.status_code != 200:
-            print(f"Error: {r.status_code} for URL: {event_url}")
+        if response.status_code != 200:
+            print(f"  Erreur HTTP {response.status_code}, ignoré.")
             continue
 
-        soup = BeautifulSoup(r.content, 'html.parser')
+        soup = BeautifulSoup(response.content, 'html.parser')
 
         titles = soup.find_all("h1", class_="tribe-events-single-event-title")
         tag_divs = soup.find_all("div", class_="event-tags")
-        descriptions = soup.find_all("div", class_="tribe-events-single-event-description tribe-events-content")
+        descriptions = soup.find_all(
+            "div",
+            class_="tribe-events-single-event-description tribe-events-content",
+        )
 
-        location_div = soup.find('div', class_='tribe-events-schedule tribe-clearfix')
-        date_div = soup.find('div', class_='tribe-events-schedule tribe-clearfix')
+        schedule_div = soup.find('div', class_='tribe-events-schedule tribe-clearfix')
 
         image_div = soup.find("div", class_="tribe-events-event-image")
-        image_src = image_div.find("img").get("src") if image_div else "Aucune image disponible"
+        image_tag = image_div.find("img") if image_div else None
+        # None (et non un texte) : l'application bascule alors sur son image
+        # de repli, alors qu'une chaîne serait interprétée comme une URL.
+        image_src = image_tag.get("src") if image_tag else None
 
-        coordonate = soup.find_all('a', href=lambda href: href and 'google.com/maps' in href)
-        coordinates = [get_lat_long_from_url(coord.get('href')) for coord in coordonate]
+        map_anchors = soup.find_all(
+            'a', href=lambda href: href and 'google.com/maps' in href
+        )
+        coordinates = [get_lat_long_from_url(a.get('href')) for a in map_anchors]
 
-        div = soup.find('div', class_='event-info-flex')
+        # Réinitialisé à chaque événement : la variable était auparavant
+        # définie hors de la boucle, si bien qu'un événement sans lien
+        # héritait silencieusement de celui de l'événement précédent.
+        link = extract_link(soup)
 
-        if div:
-            a_tag = div.find('a')
-            if a_tag and a_tag.has_attr('href'):
-                link = a_tag['href']
-                print(link)
-            else:
-                print("Aucun lien trouvé.")
-        else:
-            print("Div non trouvée.")
+        location = "Localisation non trouvée"
+        dates = "Date non trouvée"
+        if schedule_div:
+            location_p = schedule_div.find('p')
+            if location_p:
+                location = location_p.get_text(strip=True)
+            date_h2 = schedule_div.find('h2')
+            if date_h2:
+                dates = re.sub(r'(\D)(\d)', r'\1 \2', date_h2.get_text(strip=True))
 
-
-
-        if location_div:
-            location_p = location_div.find('p')
-            location = location_p.get_text(strip=True) if location_p else "Localisation non trouvée"
-        else:
-            location = "Localisation non trouvée"
-
-        if date_div:
-            date_h2 = date_div.find('h2')
-            dates = re.sub(r'(\D)(\d)', r'\1 \2', date_h2.get_text(strip=True)) if date_h2 else "Date non trouvée"
-        else:
-            dates = "Date non trouvée"
-
-        if not dates or not titles or not tag_divs or not location or not descriptions:
-            print("Plus aucune information trouvée.")
+        if not titles or not tag_divs or not descriptions:
+            print("  Informations incomplètes, ignoré.")
             continue
 
         for title, tag_div, description in zip(titles, tag_divs, descriptions):
-            id += 1
-            spans = tag_div.find_all("span")
-            tags = [' '.join(span.stripped_strings) for span in spans]
+            event_id += 1
+            tags = [' '.join(span.stripped_strings) for span in tag_div.find_all("span")]
 
             event = {
-                "id": id,
+                "id": event_id,
                 "date": " ".join(dates.strip().split()),
                 "title": ' '.join(title.stripped_strings),
                 "tags": tags,
@@ -145,39 +155,39 @@ def get_all_data():
                 "descriptions": ' '.join(description.stripped_strings),
                 "image": image_src,
                 "coordinates": coordinates,
-                "link": link
+                "link": link,
             }
 
-            print(f"Id : {id}")
-            print(f"Date : {event['date']}")
-            print(f"Titre : {event['title']}")
-            print(f"Tags : {event['tags']}")
-            print(f"Location : {event['location']}")
-            print(f"Description : {event['descriptions']}")
-            print(f"Image : {event['image']}")
-            print(f"Coordinates : {event['coordinates']}")
-            print(f"Link : {event['link']}")
-
-            print("-" * 40)
-
-            # Validation stricte : champs non vides + coordonnées valides
+            has_coordinates = any(
+                coord and coord != (None, None) for coord in event["coordinates"]
+            )
             if (
-                event.get("title") and str(event["title"]).strip() and
-                event.get("date") and str(event["date"]).strip() and
-                event.get("location") and str(event["location"]).strip() and
-                event.get("coordinates") and
-                any(coord and coord != (None, None) for coord in event["coordinates"])
+                event["title"].strip()
+                and event["date"].strip()
+                and event["location"].strip()
+                and has_coordinates
             ):
                 events.append(event)
+                print(f"  [{event_id}] {event['title']}")
             else:
-                print(f"Événement ignoré (champ vide ou coordonnées manquantes) : {event}")
+                print(f"  [{event_id}] ignoré (champ vide ou coordonnées manquantes)")
 
     with open("evenements.json", "w", encoding="utf-8") as json_file:
         json.dump(events, json_file, ensure_ascii=False, indent=4)
 
-    print(f"Les événements ont été sauvegardés dans 'evenements.json'.")
+    print(f"{len(events)} événements sauvegardés dans 'evenements.json'.")
 
 
-#get_all_url()
-get_all_data()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--urls",
+        action="store_true",
+        help="reconstruire urls.json au lieu de collecter les événements",
+    )
+    args = parser.parse_args()
 
+    if args.urls:
+        get_all_url()
+    else:
+        get_all_data()
