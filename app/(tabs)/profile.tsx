@@ -1,11 +1,16 @@
 import evenements from '@/assets/data/evenements.json';
-import { Feather, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AppHeader } from '@/components/AppHeader';
-import { Brand, HEADER_HEIGHT } from '@/constants/theme';
+import { IconButton } from '@/components/ui/IconButton';
+import { Surface } from '@/components/ui/Surface';
+import { Text } from '@/components/ui/Text';
+import { palette, radius, spacing, useTheme } from '@/theme';
 
 /**
  * Les avatars pointaient sur des URLs signées Facebook/Instagram dont les
@@ -13,209 +18,251 @@ import { Brand, HEADER_HEIGHT } from '@/constants/theme';
  * Les portraits correspondants étaient déjà présents dans assets/images.
  */
 const FRIENDS = [
-  { username: '@enzo_romoli', image: require('@/assets/images/enzo.jpg'), status: 'En ville' },
-  { username: '@hafsa_rak', image: require('@/assets/images/hafsa.jpg') },
-  { username: '@martin_rngx', image: require('@/assets/images/martin.jpg') },
-  { username: '@elsattaquent', image: require('@/assets/images/elsa.jpg'), status: 'En ville' },
+  { username: '@enzo_romoli', image: require('@/assets/images/enzo.jpg'), online: true },
+  { username: '@hafsa_rak', image: require('@/assets/images/hafsa.jpg'), online: false },
+  { username: '@martin_rngx', image: require('@/assets/images/martin.jpg'), online: false },
+  { username: '@elsattaquent', image: require('@/assets/images/elsa.jpg'), online: true },
 ];
 
-const UPCOMING_EVENTS = evenements.slice(0, 3);
+const UPCOMING_EVENTS = evenements.slice(0, 4);
+
+const STATS = [
+  { label: 'Sorties', value: '12' },
+  { label: 'Amis', value: String(FRIENDS.length) },
+  { label: 'Favoris', value: '8' },
+];
 
 export default function ProfileScreen() {
+  const theme = useTheme();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
-      <AppHeader />
-
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.profileSection}>
-          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Réglages">
-            <Ionicons name="settings-outline" size={24} color={Brand.primary} />
-          </TouchableOpacity>
-
-          <Image
-            source={require('@/assets/images/image-profil2.jpg')}
-            style={styles.avatar}
-            accessibilityLabel="Votre photo de profil"
-          />
-
-          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Favoris">
-            <Feather name="heart" size={24} color={Brand.primary} />
-          </TouchableOpacity>
+    <ScrollView
+      style={{ backgroundColor: theme.colors.background }}
+      contentContainerStyle={{ paddingBottom: insets.bottom + 100 }}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* En-tête dégradé : donne un point d'ancrage visuel fort et remplace
+          la barre blanche générique répétée sur tous les écrans. */}
+      <LinearGradient
+        colors={[palette.coral[400], palette.coral[600]]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={[styles.hero, { paddingTop: insets.top + spacing.lg }]}
+      >
+        <View style={styles.heroActions}>
+          <IconButton name="settings-outline" accessibilityLabel="Réglages" variant="ghost" />
+          <IconButton name="heart-outline" accessibilityLabel="Favoris" variant="ghost" />
         </View>
-        <Text style={styles.username}>@victor_flc</Text>
 
-        <View style={styles.friendsBlock}>
-          <Text style={styles.friendsTitle}>StudFriends</Text>
+        <Image
+          source={require('@/assets/images/image-profil2.jpg')}
+          style={styles.avatar}
+          contentFit="cover"
+          transition={240}
+          accessibilityLabel="Votre photo de profil"
+        />
+
+        <Text variant="title" style={styles.heroName}>
+          Victor
+        </Text>
+        <Text variant="label" style={styles.heroHandle}>
+          @victor_flc
+        </Text>
+
+        <View style={styles.statsRow}>
+          {STATS.map((stat) => (
+            <View key={stat.label} style={styles.stat}>
+              <Text variant="headline" style={styles.statValue}>
+                {stat.value}
+              </Text>
+              <Text variant="caption" style={styles.statLabel}>
+                {stat.label}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </LinearGradient>
+
+      <View style={styles.body}>
+        <Surface padded radius="2xl" elevation="sm" style={styles.block}>
+          <View style={styles.blockHeader}>
+            <Text variant="headline">StudFriends</Text>
+            <Text variant="caption" tone="tertiary">
+              {FRIENDS.filter((f) => f.online).length} en ville
+            </Text>
+          </View>
+
           <View style={styles.friendsList}>
             {FRIENDS.map((friend) => (
-              <View key={friend.username} style={styles.friendItem}>
+              <View key={friend.username} style={styles.friend}>
                 <View>
                   <Image
                     source={friend.image}
-                    style={styles.friendAvatar}
+                    style={[styles.friendAvatar, { borderColor: theme.colors.surface }]}
+                    contentFit="cover"
+                    transition={200}
                     accessibilityLabel={`Photo de ${friend.username}`}
                   />
-                  {!!friend.status && (
-                    <View style={styles.statusBadge}>
-                      <Text style={styles.statusText}>{friend.status}</Text>
-                    </View>
+                  {friend.online && (
+                    <View
+                      style={[
+                        styles.onlineDot,
+                        {
+                          backgroundColor: theme.colors.success,
+                          borderColor: theme.colors.surface,
+                        },
+                      ]}
+                    />
                   )}
                 </View>
-                <Text style={styles.friendUsername}>{friend.username}</Text>
+                <Text variant="caption" tone="secondary" numberOfLines={1} style={styles.friendName}>
+                  {friend.username.replace('@', '')}
+                </Text>
               </View>
             ))}
           </View>
-        </View>
+        </Surface>
 
-        <View style={styles.eventsBlock}>
-          <Text style={styles.eventsTitle}>Événements à venir</Text>
-          <View>
-            {UPCOMING_EVENTS.map((event) => (
-              <TouchableOpacity
-                key={event.id}
-                style={styles.eventItem}
-                onPress={() =>
-                  router.push({ pathname: '/evenement/[id]', params: { id: String(event.id) } })
-                }
-                accessibilityRole="button"
-                accessibilityLabel={`Événement ${event.title}`}
-              >
-                <Image source={{ uri: event.image }} style={styles.eventThumbnail} />
-                <View style={styles.eventText}>
-                  <Text style={styles.eventName} numberOfLines={1}>
-                    {event.title}
-                  </Text>
-                  <Text style={styles.eventDate}>{event.date}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
+        <Surface padded radius="2xl" elevation="sm" style={styles.block}>
+          <View style={styles.blockHeader}>
+            <Text variant="headline">Événements à venir</Text>
           </View>
-        </View>
-      </ScrollView>
-    </View>
+
+          {UPCOMING_EVENTS.map((event, index) => (
+            <Pressable
+              key={event.id}
+              onPress={() =>
+                router.push({ pathname: '/evenement/[id]', params: { id: String(event.id) } })
+              }
+              style={[
+                styles.eventRow,
+                index < UPCOMING_EVENTS.length - 1 && {
+                  borderBottomWidth: 1,
+                  borderBottomColor: theme.colors.border,
+                },
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel={`Événement ${event.title}`}
+            >
+              <Image
+                source={{ uri: event.image }}
+                style={styles.eventThumb}
+                contentFit="cover"
+                transition={200}
+              />
+              <View style={styles.eventText}>
+                <Text variant="bodyStrong" numberOfLines={1}>
+                  {event.title}
+                </Text>
+                <Text variant="caption" tone="tertiary" numberOfLines={1}>
+                  {event.date}
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={18} color={theme.colors.textTertiary} />
+            </Pressable>
+          ))}
+        </Surface>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Brand.background,
+  hero: {
+    alignItems: 'center',
+    paddingBottom: spacing['3xl'],
+    borderBottomLeftRadius: radius['3xl'],
+    borderBottomRightRadius: radius['3xl'],
   },
-  scrollContent: {
-    paddingTop: HEADER_HEIGHT + 20,
-    paddingBottom: 100,
-  },
-  profileSection: {
+  heroActions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-    paddingHorizontal: 80,
+    width: '100%',
+    paddingHorizontal: spacing.xl,
+    marginBottom: spacing.lg,
   },
   avatar: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
-    borderWidth: 2,
-    borderColor: Brand.primary,
+    width: 96,
+    height: 96,
+    borderRadius: radius.pill,
+    borderWidth: 3,
+    borderColor: 'rgba(255,255,255,0.9)',
   },
-  username: {
-    textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 16,
-    color: Brand.textPrimary,
-    marginBottom: 24,
+  heroName: {
+    color: '#FFFFFF',
+    marginTop: spacing.md,
   },
-  friendsBlock: {
-    backgroundColor: Brand.surface,
-    marginHorizontal: 20,
-    borderRadius: 20,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 3,
+  heroHandle: {
+    color: 'rgba(255,255,255,0.85)',
   },
-  friendsTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginBottom: 14,
+  statsRow: {
+    flexDirection: 'row',
+    marginTop: spacing.xl,
+    gap: spacing['3xl'],
+  },
+  stat: {
+    alignItems: 'center',
+  },
+  statValue: {
+    color: '#FFFFFF',
+  },
+  statLabel: {
+    color: 'rgba(255,255,255,0.8)',
+  },
+  body: {
+    padding: spacing.xl,
+    gap: spacing.lg,
+  },
+  block: {
+    gap: spacing.lg,
+  },
+  blockHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   friendsList: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
-  friendItem: {
+  friend: {
     alignItems: 'center',
+    gap: spacing.sm,
+    maxWidth: 72,
   },
   friendAvatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 58,
+    height: 58,
+    borderRadius: radius.pill,
+    borderWidth: 2,
   },
-  friendUsername: {
-    marginTop: 6,
-    color: Brand.primary,
-    fontWeight: '600',
-    fontSize: 12,
-  },
-  statusBadge: {
+  onlineDot: {
     position: 'absolute',
-    top: -8,
-    left: -8,
-    backgroundColor: Brand.primary,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 10,
+    right: 2,
+    bottom: 2,
+    width: 14,
+    height: 14,
+    borderRadius: radius.pill,
+    borderWidth: 2,
   },
-  statusText: {
-    color: 'white',
-    fontSize: 10,
-    fontWeight: 'bold',
+  friendName: {
+    textAlign: 'center',
   },
-  eventsBlock: {
-    backgroundColor: Brand.surface,
-    marginHorizontal: 20,
-    borderRadius: 20,
-    padding: 16,
-    marginTop: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  eventsTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginBottom: 14,
-    color: '#000',
-  },
-  eventItem: {
+  eventRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
+    gap: spacing.md,
+    paddingVertical: spacing.md,
   },
-  eventThumbnail: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
-    marginRight: 12,
-    backgroundColor: '#ddd',
+  eventThumb: {
+    width: 52,
+    height: 52,
+    borderRadius: radius.md,
   },
   eventText: {
-    flexShrink: 1,
-  },
-  eventName: {
-    fontWeight: '600',
-    fontSize: 14,
-    color: Brand.textPrimary,
-  },
-  eventDate: {
-    fontSize: 12,
-    color: 'grey',
+    flex: 1,
+    gap: 2,
   },
 });

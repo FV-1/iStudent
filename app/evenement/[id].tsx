@@ -1,14 +1,21 @@
 import evenements from '@/assets/data/evenements.json';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useCallback } from 'react';
-import { Alert, Image, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, StyleSheet, View } from 'react-native';
 
-import { Brand } from '@/constants/theme';
+import { DetailScreenLayout } from '@/components/DetailScreenLayout';
+import { Button } from '@/components/ui/Button';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { Text } from '@/components/ui/Text';
+import { radius, spacing, useTheme } from '@/theme';
 
-const FALLBACK_IMAGE = require('../../assets/images/hellfest.jpg');
+const FALLBACK_IMAGE = require('@/assets/images/hellfest.jpg');
 
 export default function FullEventScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const theme = useTheme();
+
   const event = evenements.find((e) => e.id === Number(id));
 
   const openLink = useCallback(async () => {
@@ -23,7 +30,6 @@ export default function FullEventScreen() {
       }
       await Linking.openURL(event.link);
     } catch (error) {
-      // openURL rejette si aucune application ne peut traiter l'URL.
       console.warn('Ouverture du lien impossible :', error);
       Alert.alert('Lien indisponible', 'Impossible d’ouvrir ce lien pour le moment.');
     }
@@ -31,132 +37,123 @@ export default function FullEventScreen() {
 
   if (!event) {
     return (
-      <View style={styles.notFound}>
-        <Stack.Screen options={{ title: 'Événement introuvable' }} />
-        <Text style={styles.notFoundText}>Événement non trouvé</Text>
+      <View style={[styles.notFound, { backgroundColor: theme.colors.background }]}>
+        <EmptyState
+          icon="calendar-outline"
+          title="Événement introuvable"
+          description="Cet événement n’existe plus ou a été retiré du programme."
+        />
       </View>
     );
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* `Stack.Screen` remplace le useLayoutEffect + useNavigation :
-          le titre est déclaré au rendu, sans effet de bord. */}
-      <Stack.Screen options={{ title: event.title }} />
-
-      <Image
-        source={event.image ? { uri: event.image } : FALLBACK_IMAGE}
-        style={styles.image}
-      />
-
-      <Text style={styles.title}>{event.title}</Text>
-      <Text style={styles.date}>{event.date}</Text>
-      <Text style={styles.location}>{event.location}</Text>
-
-      <View style={styles.tagsContainer}>
-        {event.tags?.map((tag) => (
-          <View key={tag} style={styles.tag}>
-            <Text style={styles.tagText}>{tag}</Text>
+    <DetailScreenLayout
+      imageUrl={event.image}
+      fallbackImage={FALLBACK_IMAGE}
+      heroOverlay={
+        <>
+          <Text variant="display" style={styles.heroTitle}>
+            {event.title}
+          </Text>
+          <View style={styles.heroMeta}>
+            <Ionicons name="location" size={14} color="rgba(255,255,255,0.9)" />
+            <Text variant="label" style={styles.heroMetaText} numberOfLines={1}>
+              {event.location}
+            </Text>
           </View>
-        ))}
+        </>
+      }
+      footer={
+        event.link ? (
+          <Button
+            label="J’y vais !"
+            onPress={openLink}
+            accessibilityLabel={`Ouvrir la page de l’événement ${event.title}`}
+          />
+        ) : undefined
+      }
+    >
+      <View style={[styles.dateCard, { backgroundColor: theme.colors.primarySoft }]}>
+        <Ionicons name="calendar" size={18} color={theme.colors.primary} />
+        <Text variant="bodyStrong" tone="brand" style={styles.dateText}>
+          {event.date}
+        </Text>
       </View>
 
-      <Text style={styles.description}>{event.descriptions}</Text>
-
-      {!!event.link && (
-        <Pressable
-          style={styles.button}
-          onPress={openLink}
-          accessibilityRole="button"
-          accessibilityLabel={`Ouvrir la page de l’événement ${event.title}`}
-        >
-          <Text style={styles.buttonText}>J&apos;y vais !</Text>
-        </Pressable>
+      {event.tags.length > 0 && (
+        <View style={styles.tagRow}>
+          {event.tags.map((tag) => (
+            <View
+              key={tag}
+              style={[
+                styles.tag,
+                {
+                  backgroundColor: theme.colors.surfaceSunken,
+                  borderColor: theme.colors.border,
+                },
+              ]}
+            >
+              <Text variant="caption" tone="secondary">
+                {tag}
+              </Text>
+            </View>
+          ))}
+        </View>
       )}
-    </ScrollView>
+
+      <View style={styles.section}>
+        <Text variant="headline">À propos</Text>
+        <Text variant="body" tone="secondary" style={styles.description}>
+          {event.descriptions}
+        </Text>
+      </View>
+    </DetailScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 40,
-    backgroundColor: '#fff',
-  },
   notFound: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
   },
-  notFoundText: {
-    fontSize: 16,
-    color: Brand.textSecondary,
+  heroTitle: {
+    color: '#FFFFFF',
   },
-  image: {
-    width: '100%',
-    height: 280,
-    borderRadius: 16,
-    marginBottom: 20,
-    resizeMode: 'cover',
+  heroMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
   },
-  title: {
-    fontSize: 26,
-    fontWeight: '600',
-    color: '#222',
-    marginBottom: 8,
-    lineHeight: 32,
-    textAlign: 'center',
+  heroMetaText: {
+    color: 'rgba(255,255,255,0.9)',
+    flexShrink: 1,
   },
-  date: {
-    fontSize: 15,
-    color: '#555',
-    marginBottom: 4,
-    textAlign: 'center',
+  dateCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    padding: spacing.lg,
+    borderRadius: radius.xl,
   },
-  location: {
-    fontSize: 15,
-    color: '#555',
-    marginBottom: 20,
-    textAlign: 'center',
+  dateText: {
+    flexShrink: 1,
   },
-  tagsContainer: {
+  tagRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 8,
-    marginBottom: 24,
+    gap: spacing.sm,
   },
   tag: {
-    backgroundColor: Brand.primaryDark,
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    borderRadius: 20,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm - 2,
+    borderRadius: radius.pill,
+    borderWidth: 1,
   },
-  tagText: {
-    fontSize: 13,
-    fontWeight: '500',
-    color: '#fff',
+  section: {
+    gap: spacing.sm,
   },
   description: {
-    fontSize: 16,
-    color: '#444',
     lineHeight: 24,
-    marginBottom: 36,
-    textAlign: 'justify',
-  },
-  button: {
-    backgroundColor: Brand.primaryDark,
-    paddingVertical: 16,
-    borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 3,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 17,
-    fontWeight: '600',
   },
 });

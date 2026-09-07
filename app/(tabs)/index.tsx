@@ -1,11 +1,19 @@
 import evenements from '@/assets/data/evenements.json';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
 import * as Location from 'expo-location';
 import { useRouter } from 'expo-router';
-import React, { useEffect, useMemo, useState } from 'react';
-import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import MapView, { Marker, type Region } from 'react-native-maps';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppHeader } from '@/components/AppHeader';
+import { Button } from '@/components/ui/Button';
+import { Chip } from '@/components/ui/Chip';
+import { IconButton } from '@/components/ui/IconButton';
+import { Text } from '@/components/ui/Text';
 import {
   EVENT_FILTERS,
   filterEvenements,
@@ -13,21 +21,33 @@ import {
   type Evenement,
   type EventFilterKey,
 } from '@/lib/eventFilters';
-import styles from '../style/index';
+import { darkMapStyle } from '@/lib/mapStyle';
+import { radius, spacing, useTheme } from '@/theme';
 
-const FALLBACK_IMAGE = require('../../assets/images/hellfest.jpg');
+const NANTES_REGION: Region = {
+  latitude: 47.2184,
+  longitude: -1.5536,
+  latitudeDelta: 0.06,
+  longitudeDelta: 0.06,
+};
 
-export default function App() {
+const MARKER_IMAGE = require('@/assets/images/pointBorzoi.png');
+const FALLBACK_IMAGE = require('@/assets/images/hellfest.jpg');
+
+export default function MapScreen() {
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
+  const mapRef = useRef<MapView>(null);
+  const sheetRef = useRef<BottomSheet>(null);
+
   const [selectedEvent, setSelectedEvent] = useState<Evenement | null>(null);
-  const [visible, setVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState<EventFilterKey>('Tous');
   const [locationGranted, setLocationGranted] = useState(false);
-  const router = useRouter();
+
+  const snapPoints = useMemo(() => ['38%', '72%'], []);
 
   useEffect(() => {
-    // `showsUserLocation` déclenche une demande d'autorisation native : sans
-    // cette requête explicite la position n'est jamais accordée sur Android,
-    // et iOS refuse d'afficher la position de l'utilisateur.
     let cancelled = false;
 
     (async () => {
@@ -51,26 +71,46 @@ export default function App() {
     [activeFilter]
   );
 
-  // Si l'événement sélectionné sort du filtre courant, on referme sa fiche.
+  const closeSheet = useCallback(() => {
+    sheetRef.current?.close();
+    setSelectedEvent(null);
+  }, []);
+
+  // Si l'événement affiché sort du filtre courant, la fiche se referme.
   useEffect(() => {
     if (selectedEvent && !visibleEvents.some((e) => e.id === selectedEvent.id)) {
-      setVisible(false);
-      setSelectedEvent(null);
+      closeSheet();
     }
-  }, [visibleEvents, selectedEvent]);
+  }, [visibleEvents, selectedEvent, closeSheet]);
+
+  const handleSelect = useCallback((evenement: Evenement) => {
+    setSelectedEvent(evenement);
+    sheetRef.current?.snapToIndex(0);
+
+    const coordinates = getEventCoordinates(evenement);
+    if (coordinates) {
+      mapRef.current?.animateToRegion(
+        { ...coordinates, latitudeDelta: 0.012, longitudeDelta: 0.012 },
+        420
+      );
+    }
+  }, []);
+
+  const recenter = useCallback(() => {
+    mapRef.current?.animateToRegion(NANTES_REGION, 480);
+  }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <MapView
-        style={styles.map}
+        ref={mapRef}
+        style={StyleSheet.absoluteFill}
         showsUserLocation={locationGranted}
-        initialRegion={{
-          latitude: 47.228166,
-          longitude: -1.5634918,
-          latitudeDelta: 0.002,
-          longitudeDelta: 0.0421,
-        }}
-        onPress={() => setVisible(false)}
+        showsMyLocationButton={false}
+        showsCompass={false}
+        initialRegion={NANTES_REGION}
+        customMapStyle={theme.dark ? darkMapStyle : undefined}
+        onPress={closeSheet}
       >
         {visibleEvents.map((evenement) => {
           const coordinates = getEventCoordinates(evenement);
@@ -82,87 +122,178 @@ export default function App() {
             <Marker
               key={evenement.id}
               coordinate={coordinates}
-              image={require('../../assets/images/pointBorzoi.png')}
+              image={MARKER_IMAGE}
               title={evenement.title}
-              onPress={() => {
-                setSelectedEvent(evenement);
-                setVisible(true);
-              }}
+              onPress={() => handleSelect(evenement)}
             />
           );
         })}
       </MapView>
 
+      <AppHeader variant="floating" subtitle={`${visibleEvents.length} événements`} />
+
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={styles.filtreScroll}
-        contentContainerStyle={styles.filtreContent}
+        style={[styles.filterScroll, { top: insets.top + 76 }]}
+        contentContainerStyle={styles.filterContent}
       >
-        {EVENT_FILTERS.map((filter) => {
-          const isActive = filter.key === activeFilter;
-          return (
-            <TouchableOpacity
-              key={filter.key}
-              style={[styles.filtreCapsule, isActive && styles.filtreCapsuleActive]}
-              onPress={() => setActiveFilter(filter.key)}
-              accessibilityRole="button"
-              accessibilityState={{ selected: isActive }}
-              accessibilityLabel={`Filtrer par ${filter.label}`}
-            >
-              <Text style={[styles.filtreText, isActive && styles.filtreTextActive]}>
-                {filter.label}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+        {EVENT_FILTERS.map((filter) => (
+          <Chip
+            key={filter.key}
+            label={filter.label}
+            selected={filter.key === activeFilter}
+            onPress={() => setActiveFilter(filter.key)}
+            accessibilityLabel={`Filtrer par ${filter.label}`}
+          />
+        ))}
       </ScrollView>
 
-      {visible && selectedEvent && (
-        <TouchableWithoutFeedback
-          onPress={() =>
-            router.push({
-              pathname: '/evenement/[id]',
-              params: { id: String(selectedEvent.id) },
-            })
-          }
-        >
-          <View style={styles.card}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image
-                source={selectedEvent.image ? { uri: selectedEvent.image } : FALLBACK_IMAGE}
-                style={styles.cardImage}
-                resizeMode="cover"
-              />
-              <View style={{ flex: 1, marginLeft: 10 }}>
-                <Text style={styles.cardTitle}>{selectedEvent.title}</Text>
-                <Text style={styles.cardDescription} numberOfLines={3} ellipsizeMode="tail">
-                  {selectedEvent.descriptions}
-                </Text>
-              </View>
-            </View>
+      <View style={[styles.fab, { bottom: insets.bottom + 96 }]}>
+        <IconButton name="locate" onPress={recenter} accessibilityLabel="Recentrer sur Nantes" />
+      </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                gap: 8,
-                justifyContent: 'center',
-              }}
-            >
-              {/* Trois capsules étaient affichées en dur : les événements
-                  ayant moins de 3 tags affichaient "#undefined". */}
-              {selectedEvent.tags.slice(0, 3).map((tag) => (
-                <View key={tag} style={styles.tagCapsule}>
-                  <Text style={styles.tagText}>#{tag}</Text>
+      <BottomSheet
+        ref={sheetRef}
+        index={-1}
+        snapPoints={snapPoints}
+        enablePanDownToClose
+        onClose={() => setSelectedEvent(null)}
+        backgroundStyle={{ backgroundColor: theme.colors.surface }}
+        handleIndicatorStyle={{ backgroundColor: theme.colors.borderStrong }}
+      >
+        <BottomSheetView style={styles.sheetContent}>
+          {selectedEvent && (
+            <>
+              <View style={styles.sheetHeader}>
+                <Image
+                  source={
+                    selectedEvent.image ? { uri: selectedEvent.image } : FALLBACK_IMAGE
+                  }
+                  style={styles.sheetImage}
+                  contentFit="cover"
+                  transition={220}
+                />
+
+                <View style={styles.sheetHeaderText}>
+                  <Text variant="headline" numberOfLines={2}>
+                    {selectedEvent.title}
+                  </Text>
+                  <View style={styles.metaRow}>
+                    <Ionicons name="calendar-outline" size={13} color={theme.colors.textSecondary} />
+                    <Text variant="caption" tone="secondary" numberOfLines={1}>
+                      {selectedEvent.date}
+                    </Text>
+                  </View>
+                  <View style={styles.metaRow}>
+                    <Ionicons name="location-outline" size={13} color={theme.colors.textSecondary} />
+                    <Text variant="caption" tone="secondary" numberOfLines={1}>
+                      {selectedEvent.location}
+                    </Text>
+                  </View>
                 </View>
-              ))}
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      )}
+              </View>
 
-      <AppHeader />
-    </SafeAreaView>
+              <View style={styles.tagRow}>
+                {selectedEvent.tags.slice(0, 4).map((tag) => (
+                  <View
+                    key={tag}
+                    style={[
+                      styles.tag,
+                      {
+                        backgroundColor: theme.colors.primarySoft,
+                        borderColor: theme.colors.primaryBorder,
+                      },
+                    ]}
+                  >
+                    <Text variant="caption" tone="brand">
+                      {tag}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+
+              <Text variant="body" tone="secondary" numberOfLines={5} style={styles.description}>
+                {selectedEvent.descriptions}
+              </Text>
+
+              <Button
+                label="Voir l'événement"
+                onPress={() =>
+                  router.push({
+                    pathname: '/evenement/[id]',
+                    params: { id: String(selectedEvent.id) },
+                  })
+                }
+                style={styles.cta}
+              />
+            </>
+          )}
+        </BottomSheetView>
+      </BottomSheet>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  filterScroll: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    zIndex: 15,
+    maxHeight: 56,
+  },
+  filterContent: {
+    paddingHorizontal: spacing.xl,
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  fab: {
+    position: 'absolute',
+    right: spacing.xl,
+    zIndex: 15,
+  },
+  sheetContent: {
+    paddingHorizontal: spacing.xl,
+    paddingBottom: spacing['3xl'],
+    gap: spacing.lg,
+  },
+  sheetHeader: {
+    flexDirection: 'row',
+    gap: spacing.lg,
+  },
+  sheetImage: {
+    width: 92,
+    height: 92,
+    borderRadius: radius.lg,
+  },
+  sheetHeaderText: {
+    flex: 1,
+    gap: spacing.xs,
+  },
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  tagRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+  },
+  tag: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs + 1,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+  },
+  description: {
+    marginTop: -spacing.xs,
+  },
+  cta: {
+    marginTop: spacing.xs,
+  },
+});

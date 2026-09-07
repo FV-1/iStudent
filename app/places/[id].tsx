@@ -1,17 +1,21 @@
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
-import { Brand } from '@/constants/theme';
+import { DetailScreenLayout } from '@/components/DetailScreenLayout';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { Text } from '@/components/ui/Text';
 import { usePlaces } from '@/contexts/PlacesContext';
+import { radius, spacing, useTheme } from '@/theme';
+
+const FALLBACK_IMAGE = require('@/assets/images/hellfest.jpg');
+
+const CATEGORY_ICON = {
+  Restaurant: 'restaurant',
+  Bar: 'wine',
+  Bibliothèque: 'book',
+} as const;
 
 /**
  * Écran de détail d'un lieu.
@@ -24,150 +28,141 @@ export default function PlaceDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { getPlaceById, loading } = usePlaces();
   const router = useRouter();
+  const theme = useTheme();
 
   const place = id ? getPlaceById(id) : undefined;
 
   if (loading) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color={Brand.primary} />
+      <View style={[styles.centered, { backgroundColor: theme.colors.background }]}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
 
   if (!place) {
     return (
-      <View style={styles.centered}>
-        <Stack.Screen options={{ title: 'Lieu introuvable' }} />
-        <Text style={styles.notFoundTitle}>Lieu introuvable</Text>
-        <Text style={styles.notFoundText}>
-          Ce lieu n’est plus disponible ou n’a pas pu être chargé.
-        </Text>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Revenir à la liste"
-        >
-          <Text style={styles.backButtonText}>Retour</Text>
-        </TouchableOpacity>
+      <View style={[styles.centered, { backgroundColor: theme.colors.background }]}>
+        <EmptyState
+          icon="map-outline"
+          title="Lieu introuvable"
+          description="Ce lieu n’est plus disponible ou n’a pas pu être chargé."
+          actionLabel="Retour"
+          onAction={() => router.back()}
+        />
       </View>
     );
   }
 
+  const hasCoordinates = place.latitude !== undefined && place.longitude !== undefined;
+
   return (
-    <ScrollView style={styles.container}>
-      <Stack.Screen options={{ title: place.title }} />
-
-      {place.imageUrl ? (
-        <Image source={{ uri: place.imageUrl }} style={styles.image} />
-      ) : (
-        <View style={[styles.image, styles.imagePlaceholder]}>
-          <Text style={styles.imagePlaceholderText}>Image non disponible</Text>
+    <DetailScreenLayout
+      imageUrl={place.imageUrl}
+      fallbackImage={FALLBACK_IMAGE}
+      heroOverlay={
+        <>
+          <View style={styles.categoryPill}>
+            <Ionicons name={CATEGORY_ICON[place.category]} size={13} color="#FFFFFF" />
+            <Text variant="caption" style={styles.categoryText}>
+              {place.category}
+            </Text>
+          </View>
+          <Text variant="display" style={styles.heroTitle}>
+            {place.title}
+          </Text>
+        </>
+      }
+    >
+      <View style={styles.section}>
+        <Text variant="headline">Informations</Text>
+        <View style={[styles.infoRow, { borderColor: theme.colors.border }]}>
+          <Ionicons name="location-outline" size={18} color={theme.colors.primary} />
+          <Text variant="body" tone="secondary" style={styles.infoText}>
+            {place.description}
+          </Text>
         </View>
-      )}
 
-      <View style={styles.content}>
-        <Text style={styles.title}>{place.title}</Text>
-        <Text style={styles.category}>{place.category}</Text>
-        <Text style={styles.description}>{place.description}</Text>
-
-        {place.tags.length > 0 && (
-          <View style={styles.tagsContainer}>
-            {place.tags.map((tag) => (
-              <View key={tag} style={styles.tag}>
-                <Text style={styles.tagText}>{tag}</Text>
-              </View>
-            ))}
+        {hasCoordinates && (
+          <View style={[styles.infoRow, { borderColor: theme.colors.border }]}>
+            <Ionicons name="navigate-outline" size={18} color={theme.colors.primary} />
+            <Text variant="body" tone="secondary" style={styles.infoText}>
+              {place.latitude?.toFixed(4)}, {place.longitude?.toFixed(4)}
+            </Text>
           </View>
         )}
       </View>
-    </ScrollView>
+
+      {place.tags.length > 0 && (
+        <View style={styles.section}>
+          <Text variant="headline">Situé à</Text>
+          <View style={styles.tagRow}>
+            {place.tags.map((tag) => (
+              <View
+                key={tag}
+                style={[
+                  styles.tag,
+                  {
+                    backgroundColor: theme.colors.primarySoft,
+                    borderColor: theme.colors.primaryBorder,
+                  },
+                ]}
+              >
+                <Text variant="caption" tone="brand">
+                  {tag}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      )}
+    </DetailScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Brand.surface,
-  },
   centered: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
-    backgroundColor: Brand.surface,
   },
-  notFoundTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: Brand.primary,
-    marginBottom: 8,
-  },
-  notFoundText: {
-    fontSize: 15,
-    color: Brand.textSecondary,
-    textAlign: 'center',
-  },
-  backButton: {
-    marginTop: 20,
-    backgroundColor: Brand.primary,
-    paddingVertical: 12,
-    paddingHorizontal: 28,
-    borderRadius: 22,
-  },
-  backButtonText: {
-    color: '#fff',
-    fontWeight: '600',
-  },
-  image: {
-    width: '100%',
-    height: 220,
-    resizeMode: 'cover',
-  },
-  imagePlaceholder: {
-    backgroundColor: '#ddd',
-    justifyContent: 'center',
+  categoryPill: {
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: spacing.xs,
+    alignSelf: 'flex-start',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs + 1,
+    borderRadius: radius.pill,
+    backgroundColor: 'rgba(255,255,255,0.22)',
   },
-  imagePlaceholderText: {
-    color: Brand.textSecondary,
-    fontSize: 16,
+  categoryText: {
+    color: '#FFFFFF',
   },
-  content: {
-    padding: 20,
+  heroTitle: {
+    color: '#FFFFFF',
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 6,
-    color: Brand.primary,
+  section: {
+    gap: spacing.md,
   },
-  category: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'salmon',
-    marginBottom: 12,
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    paddingVertical: spacing.md,
+    borderBottomWidth: 1,
   },
-  description: {
-    fontSize: 16,
-    lineHeight: 22,
-    color: Brand.textPrimary,
-    marginBottom: 20,
+  infoText: {
+    flex: 1,
   },
-  tagsContainer: {
+  tagRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: spacing.sm,
   },
   tag: {
-    backgroundColor: Brand.primary,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
-  tagText: {
-    color: '#fff',
-    fontWeight: '600',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm - 2,
+    borderRadius: radius.pill,
+    borderWidth: 1,
   },
 });

@@ -1,104 +1,158 @@
 import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 import { useRouter } from 'expo-router';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Brand, HEADER_HEIGHT } from '@/constants/theme';
+import { SearchBar } from '@/components/ui/SearchBar';
+import { Text } from '@/components/ui/Text';
+import { radius, spacing, useTheme } from '@/theme';
 
 type AppHeaderProps = {
-  /** Ville affichée dans la pastille de droite. */
+  title?: string;
+  subtitle?: string;
   city?: string;
-  onSearchPress?: () => void;
   onCityPress?: () => void;
-  /**
-   * `absolute` superpose le header au contenu (utilisé au-dessus de la carte),
-   * `static` le place dans le flux normal.
-   */
-  variant?: 'absolute' | 'static';
+  /** Affiche une barre de recherche sous le titre. */
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
+  searchPlaceholder?: string;
+  /** `floating` superpose le header au contenu (au-dessus de la carte). */
+  variant?: 'floating' | 'solid';
 };
 
 /**
- * Header commun aux quatre écrans. Il était auparavant copié-collé à
- * l'identique dans chacun d'eux, avec ses styles redéfinis à chaque fois.
+ * Header commun aux écrans.
+ *
+ * Deux corrections structurelles par rapport à la version précédente :
+ * - la hauteur suit les encoches via `useSafeAreaInsets` au lieu d'un
+ *   `paddingTop: 40` codé en dur, faux sur la plupart des appareils ;
+ * - en mode `floating`, le fond est un flou natif et non un aplat blanc.
  */
 export function AppHeader({
+  title = 'IStudent',
+  subtitle,
   city = 'Nantes',
-  onSearchPress,
   onCityPress,
-  variant = 'absolute',
+  searchValue,
+  onSearchChange,
+  searchPlaceholder,
+  variant = 'solid',
 }: AppHeaderProps) {
+  const theme = useTheme();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
-  return (
-    <View style={[styles.container, variant === 'absolute' && styles.absolute]}>
-      <View style={styles.row}>
-        <TouchableOpacity
+  const showSearch = typeof searchValue === 'string' && !!onSearchChange;
+  const isFloating = variant === 'floating';
+
+  const content = (
+    <View style={[styles.content, { paddingTop: insets.top + spacing.sm }]}>
+      <View style={styles.topRow}>
+        <Pressable
           onPress={() => router.push('/')}
           accessibilityRole="button"
           accessibilityLabel="IStudent, revenir à la carte"
+          hitSlop={8}
         >
-          <Text style={styles.logo}>IStudent</Text>
-        </TouchableOpacity>
+          <Text variant="title" tone="brand">
+            {title}
+          </Text>
+          {!!subtitle && (
+            <Text variant="caption" tone="secondary">
+              {subtitle}
+            </Text>
+          )}
+        </Pressable>
 
-        <TouchableOpacity
-          onPress={onSearchPress}
-          disabled={!onSearchPress}
-          accessibilityRole="button"
-          accessibilityLabel="Rechercher"
-        >
-          <Ionicons name="search" size={20} color="grey" />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.cityButton}
+        <Pressable
           onPress={onCityPress}
           disabled={!onCityPress}
+          style={[
+            styles.cityPill,
+            {
+              backgroundColor: theme.colors.primarySoft,
+              borderColor: theme.colors.primaryBorder,
+            },
+          ]}
           accessibilityRole="button"
           accessibilityLabel={`Ville sélectionnée : ${city}`}
         >
-          <Text style={styles.cityText}>{city}</Text>
-        </TouchableOpacity>
+          <Ionicons name="location" size={13} color={theme.colors.primary} />
+          <Text variant="label" tone="brand">
+            {city}
+          </Text>
+        </Pressable>
       </View>
+
+      {showSearch && (
+        <View style={styles.searchRow}>
+          <SearchBar
+            value={searchValue}
+            onChangeText={onSearchChange}
+            placeholder={searchPlaceholder}
+          />
+        </View>
+      )}
+    </View>
+  );
+
+  if (isFloating) {
+    return (
+      <View style={styles.floating}>
+        {/* Le flou natif n'existe pas sur Android : on retombe sur un aplat. */}
+        {Platform.OS === 'ios' ? (
+          <BlurView intensity={64} tint={theme.colors.blurTint} style={styles.fill}>
+            {content}
+          </BlurView>
+        ) : (
+          <View style={[styles.fill, { backgroundColor: theme.colors.surface }]}>{content}</View>
+        )}
+      </View>
+    );
+  }
+
+  return (
+    <View style={{ backgroundColor: theme.colors.background }}>
+      {content}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: HEADER_HEIGHT,
-    backgroundColor: Brand.surface,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    zIndex: 10,
-  },
-  absolute: {
+  floating: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
+    zIndex: 20,
+    borderBottomLeftRadius: radius['2xl'],
+    borderBottomRightRadius: radius['2xl'],
+    overflow: 'hidden',
   },
-  row: {
+  fill: {
+    width: '100%',
+  },
+  content: {
+    paddingHorizontal: spacing.xl,
+    paddingBottom: spacing.md,
+    gap: spacing.md,
+  },
+  topRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingTop: 40,
-    height: 80,
   },
-  logo: {
-    fontSize: 30,
-    color: Brand.primary,
-    fontWeight: 'bold',
-  },
-  cityButton: {
-    borderWidth: 2,
-    borderColor: Brand.primary,
+  cityPill: {
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
+    gap: spacing.xs,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.pill,
+    borderWidth: 1,
   },
-  cityText: {
-    fontWeight: 'bold',
-    color: Brand.primary,
+  searchRow: {
+    marginTop: spacing.xs,
   },
 });
