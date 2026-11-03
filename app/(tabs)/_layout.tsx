@@ -1,24 +1,23 @@
+import { FontAwesome } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Image } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
+import { Brand } from '@/constants/theme';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'salmon',
+        tabBarActiveTintColor: Brand.primary,
         tabBarInactiveTintColor: 'black',
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarShowLabel: false,
         tabBarStyle: {
-          left: 20,
-          right: 20,
           borderRadius: 20,
           height: 70,
           backgroundColor: 'white',
@@ -33,37 +32,35 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Map',
-          tabBarIcon: ({ color }) => (
-            <Icon name="map" size={28} color={color} />
-          ),
+          title: 'Carte',
+          tabBarAccessibilityLabel: 'Carte',
+          tabBarIcon: ({ color }) => <FontAwesome name="map" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="explorer"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => (
-            <Icon name="compass" size={28} color={color} />
-          ),
+          title: 'Explorer',
+          tabBarAccessibilityLabel: 'Explorer les lieux',
+          tabBarIcon: ({ color }) => <FontAwesome name="compass" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="restaurants_explore"
         options={{
-          title: 'Events',
-          tabBarIcon: ({ color }) => (
-            <Icon name="star" size={28} color={color} />
-          ),
+          title: 'Événements',
+          tabBarAccessibilityLabel: 'Événements',
+          tabBarIcon: ({ color }) => <FontAwesome name="star" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: 'Profil',
+          tabBarAccessibilityLabel: 'Profil',
           tabBarIcon: () => (
             <Image
-              source={require('../../assets/images/image-profil2.jpg')}
+              source={require('@/assets/images/image-profil2.jpg')}
               style={{ width: 30, height: 30, borderRadius: 15 }}
             />
           ),

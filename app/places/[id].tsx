@@ -1,19 +1,64 @@
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-interface PlaceDetailProps {
-  place: {
-    title: string;
-    description: string;
-    imageUrl?: string;
-    tags?: string[];
-    category: string;
-  };
-}
+import { Brand } from '@/constants/theme';
+import { usePlaces } from '@/contexts/PlacesContext';
 
-export default function PlaceDetailScreen({ place }: PlaceDetailProps) {
+/**
+ * Écran de détail d'un lieu.
+ *
+ * Il recevait auparavant une prop `place` qu'expo-router ne fournit jamais :
+ * chaque ouverture depuis la liste plantait sur `place.imageUrl`.
+ * Le lieu est désormais résolu depuis l'identifiant de la route.
+ */
+export default function PlaceDetailScreen() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { getPlaceById, loading } = usePlaces();
+  const router = useRouter();
+
+  const place = id ? getPlaceById(id) : undefined;
+
+  if (loading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color={Brand.primary} />
+      </View>
+    );
+  }
+
+  if (!place) {
+    return (
+      <View style={styles.centered}>
+        <Stack.Screen options={{ title: 'Lieu introuvable' }} />
+        <Text style={styles.notFoundTitle}>Lieu introuvable</Text>
+        <Text style={styles.notFoundText}>
+          Ce lieu n’est plus disponible ou n’a pas pu être chargé.
+        </Text>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+          accessibilityRole="button"
+          accessibilityLabel="Revenir à la liste"
+        >
+          <Text style={styles.backButtonText}>Retour</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
+      <Stack.Screen options={{ title: place.title }} />
+
       {place.imageUrl ? (
         <Image source={{ uri: place.imageUrl }} style={styles.image} />
       ) : (
@@ -21,19 +66,21 @@ export default function PlaceDetailScreen({ place }: PlaceDetailProps) {
           <Text style={styles.imagePlaceholderText}>Image non disponible</Text>
         </View>
       )}
+
       <View style={styles.content}>
         <Text style={styles.title}>{place.title}</Text>
         <Text style={styles.category}>{place.category}</Text>
         <Text style={styles.description}>{place.description}</Text>
-        <View style={styles.tagsContainer}>
-          {place.tags && place.tags.length > 0
-            ? place.tags.map((tag, idx) => (
-                <View key={idx} style={styles.tag}>
-                  <Text style={styles.tagText}>{tag}</Text>
-                </View>
-              ))
-            : null}
-        </View>
+
+        {place.tags.length > 0 && (
+          <View style={styles.tagsContainer}>
+            {place.tags.map((tag) => (
+              <View key={tag} style={styles.tag}>
+                <Text style={styles.tagText}>{tag}</Text>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -42,7 +89,36 @@ export default function PlaceDetailScreen({ place }: PlaceDetailProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Brand.surface,
+  },
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 24,
+    backgroundColor: Brand.surface,
+  },
+  notFoundTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Brand.primary,
+    marginBottom: 8,
+  },
+  notFoundText: {
+    fontSize: 15,
+    color: Brand.textSecondary,
+    textAlign: 'center',
+  },
+  backButton: {
+    marginTop: 20,
+    backgroundColor: Brand.primary,
+    paddingVertical: 12,
+    paddingHorizontal: 28,
+    borderRadius: 22,
+  },
+  backButtonText: {
+    color: '#fff',
+    fontWeight: '600',
   },
   image: {
     width: '100%',
@@ -55,7 +131,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imagePlaceholderText: {
-    color: '#666',
+    color: Brand.textSecondary,
     fontSize: 16,
   },
   content: {
@@ -65,7 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 6,
-    color: '#FF6666',
+    color: Brand.primary,
   },
   category: {
     fontSize: 16,
@@ -76,7 +152,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     lineHeight: 22,
-    color: '#333',
+    color: Brand.textPrimary,
     marginBottom: 20,
   },
   tagsContainer: {
@@ -85,12 +161,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   tag: {
-    backgroundColor: '#FF6666',
+    backgroundColor: Brand.primary,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
-    marginRight: 8,
-    marginBottom: 8,
   },
   tagText: {
     color: '#fff',

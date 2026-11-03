@@ -1,31 +1,51 @@
 import evenements from '@/assets/data/evenements.json';
-import { useLocalSearchParams } from 'expo-router';
-import React, { useLayoutEffect } from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, Pressable, Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // ⚠️ important
+import { Stack, useLocalSearchParams } from 'expo-router';
+import React, { useCallback } from 'react';
+import { Alert, Image, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { Brand } from '@/constants/theme';
+
+const FALLBACK_IMAGE = require('../../assets/images/hellfest.jpg');
 
 export default function FullEventScreen() {
-  const { id } = useLocalSearchParams();
-  const navigation = useNavigation(); // ⚠️ important
-
+  const { id } = useLocalSearchParams<{ id: string }>();
   const event = evenements.find((e) => e.id === Number(id));
 
-  useLayoutEffect(() => {
-    navigation.setOptions({ title: event?.title }); // ou headerShown: false
-  }, [navigation]);
+  const openLink = useCallback(async () => {
+    if (!event?.link) {
+      return;
+    }
+    try {
+      const supported = await Linking.canOpenURL(event.link);
+      if (!supported) {
+        Alert.alert('Lien indisponible', 'Ce lien ne peut pas être ouvert sur cet appareil.');
+        return;
+      }
+      await Linking.openURL(event.link);
+    } catch (error) {
+      // openURL rejette si aucune application ne peut traiter l'URL.
+      console.warn('Ouverture du lien impossible :', error);
+      Alert.alert('Lien indisponible', 'Impossible d’ouvrir ce lien pour le moment.');
+    }
+  }, [event?.link]);
 
   if (!event) {
     return (
-      <View style={{ padding: 20 }}>
-        <Text>Événement non trouvé</Text>
+      <View style={styles.notFound}>
+        <Stack.Screen options={{ title: 'Événement introuvable' }} />
+        <Text style={styles.notFoundText}>Événement non trouvé</Text>
       </View>
     );
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* `Stack.Screen` remplace le useLayoutEffect + useNavigation :
+          le titre est déclaré au rendu, sans effet de bord. */}
+      <Stack.Screen options={{ title: event.title }} />
+
       <Image
-        source={event.image ? { uri: event.image } : require('../../assets/images/hellfest.jpg')}
+        source={event.image ? { uri: event.image } : FALLBACK_IMAGE}
         style={styles.image}
       />
 
@@ -34,20 +54,26 @@ export default function FullEventScreen() {
       <Text style={styles.location}>{event.location}</Text>
 
       <View style={styles.tagsContainer}>
-        {event.tags?.map((tag, index) => (
-          <View key={index} style={styles.tag}>
+        {event.tags?.map((tag) => (
+          <View key={tag} style={styles.tag}>
             <Text style={styles.tagText}>{tag}</Text>
           </View>
         ))}
       </View>
 
       <Text style={styles.description}>{event.descriptions}</Text>
-      <Pressable style={styles.button} onPress={() => Linking.openURL(event.link)}>
-        <Text style={styles.buttonText}>J'y vais !</Text>
-      </Pressable>
 
-          
-</ScrollView>
+      {!!event.link && (
+        <Pressable
+          style={styles.button}
+          onPress={openLink}
+          accessibilityRole="button"
+          accessibilityLabel={`Ouvrir la page de l’événement ${event.title}`}
+        >
+          <Text style={styles.buttonText}>J&apos;y vais !</Text>
+        </Pressable>
+      )}
+    </ScrollView>
   );
 }
 
@@ -57,6 +83,16 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 40,
     backgroundColor: '#fff',
+  },
+  notFound: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  notFoundText: {
+    fontSize: 16,
+    color: Brand.textSecondary,
   },
   image: {
     width: '100%',
@@ -75,14 +111,12 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 15,
-    fontWeight: '400',
     color: '#555',
     marginBottom: 4,
     textAlign: 'center',
   },
   location: {
     fontSize: 15,
-    fontWeight: '400',
     color: '#555',
     marginBottom: 20,
     textAlign: 'center',
@@ -95,7 +129,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   tag: {
-    backgroundColor: '#FF5A5F',
+    backgroundColor: Brand.primaryDark,
     paddingVertical: 6,
     paddingHorizontal: 14,
     borderRadius: 20,
@@ -107,14 +141,13 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    fontWeight: '400',
     color: '#444',
     lineHeight: 24,
     marginBottom: 36,
     textAlign: 'justify',
   },
   button: {
-    backgroundColor: '#FF5A5F',
+    backgroundColor: Brand.primaryDark,
     paddingVertical: 16,
     borderRadius: 24,
     alignItems: 'center',

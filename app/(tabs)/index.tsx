@@ -1,32 +1,69 @@
 import evenements from '@/assets/data/evenements.json';
+import * as Location from 'expo-location';
 import { useRouter } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { AppHeader } from '@/components/AppHeader';
+import {
+  EVENT_FILTERS,
+  filterEvenements,
+  getEventCoordinates,
+  type Evenement,
+  type EventFilterKey,
+} from '@/lib/eventFilters';
 import styles from '../style/index';
 
-type Evenement = typeof evenements[number];
+const FALLBACK_IMAGE = require('../../assets/images/hellfest.jpg');
 
 export default function App() {
   const [selectedEvent, setSelectedEvent] = useState<Evenement | null>(null);
   const [visible, setVisible] = useState(false);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [activeFilter, setActiveFilter] = useState<EventFilterKey>('Tous');
+  const [locationGranted, setLocationGranted] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 5000,
-      useNativeDriver: true,
-    }).start();
+    // `showsUserLocation` déclenche une demande d'autorisation native : sans
+    // cette requête explicite la position n'est jamais accordée sur Android,
+    // et iOS refuse d'afficher la position de l'utilisateur.
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (!cancelled) {
+          setLocationGranted(status === Location.PermissionStatus.GRANTED);
+        }
+      } catch (error) {
+        console.warn('Permission de localisation indisponible :', error);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  const visibleEvents = useMemo(
+    () => filterEvenements(evenements, activeFilter),
+    [activeFilter]
+  );
+
+  // Si l'événement sélectionné sort du filtre courant, on referme sa fiche.
+  useEffect(() => {
+    if (selectedEvent && !visibleEvents.some((e) => e.id === selectedEvent.id)) {
+      setVisible(false);
+      setSelectedEvent(null);
+    }
+  }, [visibleEvents, selectedEvent]);
 
   return (
     <SafeAreaView style={styles.container}>
       <MapView
         style={styles.map}
-        showsUserLocation={true}
+        showsUserLocation={locationGranted}
         initialRegion={{
           latitude: 47.228166,
           longitude: -1.5634918,
@@ -35,20 +72,18 @@ export default function App() {
         }}
         onPress={() => setVisible(false)}
       >
-        {evenements.map((evenement) => {
-          const lat = parseFloat(evenement.coordinates?.[0]?.[0] ?? '0');
-          const lon = parseFloat(evenement.coordinates?.[0]?.[1] ?? '0');
-
-          if (!lat || !lon) {
-            console.warn('Coordonnées manquantes pour :', evenement.title);
+        {visibleEvents.map((evenement) => {
+          const coordinates = getEventCoordinates(evenement);
+          if (!coordinates) {
             return null;
           }
 
           return (
             <Marker
               key={evenement.id}
-              coordinate={{ latitude: lat, longitude: lon }}
+              coordinate={coordinates}
               image={require('../../assets/images/pointBorzoi.png')}
+              title={evenement.title}
               onPress={() => {
                 setSelectedEvent(evenement);
                 setVisible(true);
@@ -64,45 +99,45 @@ export default function App() {
         style={styles.filtreScroll}
         contentContainerStyle={styles.filtreContent}
       >
-        {['🎉 Event', '🍽 Resto', '🎶 Concert', '🏛️ Culture', '🌳 Nature'].map((item, index) => (
-          <TouchableOpacity key={index} style={styles.filtreCapsule}>
-            <Text style={styles.filtreText}>{item}</Text>
-          </TouchableOpacity>
-        ))}
+        {EVENT_FILTERS.map((filter) => {
+          const isActive = filter.key === activeFilter;
+          return (
+            <TouchableOpacity
+              key={filter.key}
+              style={[styles.filtreCapsule, isActive && styles.filtreCapsuleActive]}
+              onPress={() => setActiveFilter(filter.key)}
+              accessibilityRole="button"
+              accessibilityState={{ selected: isActive }}
+              accessibilityLabel={`Filtrer par ${filter.label}`}
+            >
+              <Text style={[styles.filtreText, isActive && styles.filtreTextActive]}>
+                {filter.label}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </ScrollView>
 
       {visible && selectedEvent && (
         <TouchableWithoutFeedback
-          onPress={() => {
-            if (selectedEvent?.id) {
-              router.push({
-                pathname: '/evenement/[id]',
-                params: { id: selectedEvent.id.toString() },
-              });
-            }
-          }}
+          onPress={() =>
+            router.push({
+              pathname: '/evenement/[id]',
+              params: { id: String(selectedEvent.id) },
+            })
+          }
         >
           <View style={styles.card}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image
-                source={
-                  selectedEvent?.image
-                    ? { uri: selectedEvent.image }
-                    : require('../../assets/images/hellfest.jpg')
-                }
+                source={selectedEvent.image ? { uri: selectedEvent.image } : FALLBACK_IMAGE}
                 style={styles.cardImage}
                 resizeMode="cover"
               />
               <View style={{ flex: 1, marginLeft: 10 }}>
-                <Text style={styles.cardTitle}>
-                  {selectedEvent ? selectedEvent.title : 'Hellfest'}
-                </Text>
-                <Text
-                  style={styles.cardDescription}
-                  numberOfLines={3}
-                  ellipsizeMode="tail"
-                >
-                  {selectedEvent?.descriptions}
+                <Text style={styles.cardTitle}>{selectedEvent.title}</Text>
+                <Text style={styles.cardDescription} numberOfLines={3} ellipsizeMode="tail">
+                  {selectedEvent.descriptions}
                 </Text>
               </View>
             </View>
@@ -115,31 +150,19 @@ export default function App() {
                 justifyContent: 'center',
               }}
             >
-              <View style={styles.tagCapsule}>
-                <Text style={styles.tagText}>#{selectedEvent?.tags[0]}</Text>
-              </View>
-              <View style={styles.tagCapsule}>
-                <Text style={styles.tagText}>#{selectedEvent?.tags[1]}</Text>
-              </View>
-              <View style={styles.tagCapsule}>
-                <Text style={styles.tagText}>#{selectedEvent?.tags[2]}</Text>
-              </View>
+              {/* Trois capsules étaient affichées en dur : les événements
+                  ayant moins de 3 tags affichaient "#undefined". */}
+              {selectedEvent.tags.slice(0, 3).map((tag) => (
+                <View key={tag} style={styles.tagCapsule}>
+                  <Text style={styles.tagText}>#{tag}</Text>
+                </View>
+              ))}
             </View>
           </View>
         </TouchableWithoutFeedback>
       )}
 
-      <View style={styles.whiteZoneHaut}>
-        <View style={styles.topComponents}>
-          <TouchableOpacity onPress={() => router.push('/')}>
-            <Text style={{ fontSize: 30, color: '#FF6666', fontWeight: 'bold' }}>IStudent</Text>
-          </TouchableOpacity>
-          <Icon name="search" size={20} color="grey" />
-          <TouchableOpacity style={styles.bigButton}>
-            <Text style={styles.buttonText}>Nantes</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <AppHeader />
     </SafeAreaView>
   );
 }
